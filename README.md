@@ -1,4 +1,4 @@
-# quarantine-ludo
+# Quarantine-ludo (WebRTC Project-2)
 ## This is a repositiory for project-2
 
 ## Equipment
