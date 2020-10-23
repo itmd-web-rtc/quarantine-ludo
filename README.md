@@ -1,6 +1,8 @@
 # Quarantine-ludo (WebRTC Project-2)
 ## This is a repositiory for project-2
 
+![Ludo](images/ludo.PNG "Ludo")
+
 ## Equipment
 
 A Ludo board is is square with a pattern on it in the shape of a cross, each arm being divided into three adjacent columns of eight squares. The middle squares form the home column for each colour and cannot be landed upon by other colours. The middle of the cross forms a large square which is the 'home' area and which is divided into 4 home triangles, one of each colour. At each corner, separate to the main circuit are coloured circles (or squares) where the pieces are placed to begin.
