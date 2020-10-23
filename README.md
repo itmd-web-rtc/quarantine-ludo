@@ -1,7 +1,7 @@
 # Quarantine-ludo (WebRTC Project-2)
 ## This is a repositiory for project-2
 
-![Ludo](images/ludo.PNG "Ludo")
+![Ludo](images/ludo.png "Ludo")
 
 ## Equipment
 
