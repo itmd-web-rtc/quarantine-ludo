@@ -1,7 +1,45 @@
 body {
+  background-color:lightblue;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+
+.callStart {
+  background:    #00ff00;
+  border-radius: 11px;
+  padding:       20px 45px;
+  color:         #ffffff;
+  display:       inline-block;
+  font:          normal bold 18px/1 "Calibri", sans-serif;
+  text-align:    center;
+}
+
+
+.callEnd {
+  background:    #ff0000;
+  border-radius: 11px;
+  padding:       20px 45px;
+  color:         #ffffff;
+  display:       inline-block;
+  font:          normal bold 18px/1 "Calibri", sans-serif;
+  text-align:    center;
+}
+
+
+.button {
+  background-color: #f09433;  
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
 
 a {
   color: #00B7FF;
