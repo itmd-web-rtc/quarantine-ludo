@@ -7,6 +7,7 @@ var generateRoomURL = require("../lib/generate-random-url");
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quarantine Ludo' });
+});
   
 /* GET create room. */
 router.get("/create-room", function (req, res, next) {
