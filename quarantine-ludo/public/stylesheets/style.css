@@ -5,7 +5,7 @@ body {
 }
 
 
-.callStart {
+#callStart {
   background:    #00ff00;
   border-radius: 11px;
   padding:       20px 45px;
@@ -16,7 +16,7 @@ body {
 }
 
 
-.callEnd {
+#callEnd {
   background:    #ff0000;
   border-radius: 11px;
   padding:       20px 45px;
@@ -27,8 +27,8 @@ body {
 }
 
 
-.button {
-  background-color: #f09433;  
+#startButton {
+  background-color: #008CBA;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -36,7 +36,10 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
+
 
 
 
