@@ -1,9 +1,11 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 .main {
   margin-top: 70px;
+  height: calc(100vh - 100px);
 }
 nav {
   width: 100%;
@@ -22,14 +24,15 @@ nav {
   float: left;
 }
 
-#callStart {
-  background: #00ff00;
-  border-radius: 11px;
-  padding: 20px 45px;
-  color: #ffffff;
-  display: inline-block;
-  font: normal bold 18px/1 "Calibri", sans-serif;
-  text-align: center;
+#createRoom {
+  background-color: #119b48;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 #callEnd {
@@ -55,6 +58,26 @@ nav {
   cursor: pointer;
 }
 
-a {
-  color: #00b7ff;
+.wrapper {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 2fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.displayVideoTest {
+  border-radius: 25px;
+  text-align: center;
+  justify-items: center;
+  width: 80%;
+}
+
+video {
+  height: 400px;
+  width: 100%;
+  background-color: black;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  object-fit: cover;
 }
