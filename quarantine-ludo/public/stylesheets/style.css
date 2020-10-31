@@ -1,34 +1,49 @@
 body {
-  background-color:lightblue;
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.main {
+  margin-top: 70px;
+}
+nav {
+  width: 100%;
+  background: white;
+  -webkit-box-shadow: 0px 6px 5px -5px #bdc3c7;
+  -moz-box-shadow: 0px 6px 5px -5px #bdc3c7;
+  box-shadow: 0px 6px 8px -5px #bdc3c7;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+}
+
+.logo {
+  margin: 5px;
+  height: 100%;
+  float: left;
+}
 
 #callStart {
-  background:    #00ff00;
+  background: #00ff00;
   border-radius: 11px;
-  padding:       20px 45px;
-  color:         #ffffff;
-  display:       inline-block;
-  font:          normal bold 18px/1 "Calibri", sans-serif;
-  text-align:    center;
+  padding: 20px 45px;
+  color: #ffffff;
+  display: inline-block;
+  font: normal bold 18px/1 "Calibri", sans-serif;
+  text-align: center;
 }
-
 
 #callEnd {
-  background:    #ff0000;
+  background: #ff0000;
   border-radius: 11px;
-  padding:       20px 45px;
-  color:         #ffffff;
-  display:       inline-block;
-  font:          normal bold 18px/1 "Calibri", sans-serif;
-  text-align:    center;
+  padding: 20px 45px;
+  color: #ffffff;
+  display: inline-block;
+  font: normal bold 18px/1 "Calibri", sans-serif;
+  text-align: center;
 }
 
-
 #startButton {
-  background-color: #008CBA;
+  background-color: #008cba;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -40,10 +55,6 @@ body {
   cursor: pointer;
 }
 
-
-
-
-
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }

@@ -2,24 +2,34 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <nav>
+      <a href="localhost:3000">
+        <img
+          class="logo"
+          src="/images/logo-brand.png"
+          width="240px"
+          alt="ludo-logo"
+        />
+      </a>
+    </nav>
+    <section class="main">
+      <h1><%= title %></h1>
+      <p>Welcome to <%= title %></p>
 
-    <video id="localVideo" autoplay playsinline></video>
-    <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay playsinline></video>
+      <video id="remoteVideo" autoplay playsinline></video>
 
-
-    <div>
-      <button id="startButton">Start</button>
-      <button id="callStart">Call</button>
-      <button id="CallEnd">Hang Up</button>
-    </div>
+      <div>
+        <button id="startButton">Start</button>
+        <button id="callStart">Call</button>
+        <button id="CallEnd">Hang Up</button>
+      </div>
+    </section>
 
     <script src="javascripts/main.js"></script>
-
-
   </body>
 </html>
