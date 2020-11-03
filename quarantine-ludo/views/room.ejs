@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="localhost:3000">
+        <img
+          class="logo"
+          src="/images/logo-brand.png"
+          width="240px"
+          alt="ludo-logo"
+        />
+      </a>
+    </nav>
+    <section class="main">
+      <div class="wrapper">
+        <div class="displayVideoTest">
+          <video width="100%" height="100%" autoplay playsinline></video>
+        </div>
+        <div></div>
+      </div>
+    </section>
+    <script>
+      window.NAMESPACE = `<%- namespace %>`;
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/room.js"></script>
+  </body>
+</html>
