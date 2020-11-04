@@ -134,3 +134,7 @@ video {
   grid-template-columns: 0.8fr 2fr 0.4fr;
   justify-items: center;
 }
+
+.game-grid-col {
+  padding-top: 70px;
+}
