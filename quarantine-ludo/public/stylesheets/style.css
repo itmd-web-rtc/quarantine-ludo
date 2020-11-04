@@ -18,6 +18,7 @@ nav {
   overflow: hidden;
   position: fixed;
   top: 0;
+  z-index: 1000;
 }
 
 .logo {
@@ -124,4 +125,12 @@ video {
   align-items: center;
   position: absolute;
   margin: 1%;
+}
+
+.game-grid {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 0.8fr 2fr 0.4fr;
+  justify-items: center;
 }
