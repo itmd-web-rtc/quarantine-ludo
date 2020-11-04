@@ -36,10 +36,12 @@ namespaces.on("connection", function (socket) {
     `successfully Connected on NAMESPACE: ${namespace.name}`
   );
 
+  //Send the calling signal to others
   socket.on("calling", () => {
     socket.broadcast.emit("calling");
   });
 
+  //send the singal to others
   socket.on("signal", ({ description, candidate }) => {
     console.log(`Received a singal from ${socket.id}`);
     console.log({ description, candidate });

@@ -17,7 +17,7 @@ const hdConstraints = {
 };
 
 // Video element where stream will be placed.
-const localVideo = document.querySelector("video");
+const localVideo = document.querySelectorAll("video");
 
 // Local stream that will be reproduced on the video.
 let localStream;
@@ -25,7 +25,10 @@ let localStream;
 // Handles success by adding the MediaStream to the video element.
 function gotLocalMediaStream(mediaStream) {
   localStream = mediaStream;
-  localVideo.srcObject = mediaStream;
+  localVideo[0].srcObject = mediaStream;
+  localVideo[1].srcObject = mediaStream;
+  localVideo[2].srcObject = mediaStream;
+  localVideo[3].srcObject = mediaStream;
 }
 
 // Handles error by logging a message to the console with the error message.
