@@ -31,10 +31,22 @@ const namespaces = io.of(/^\/[a-z]{3}-[a-z]{4}-[a-z]{3}$/);
 namespaces.on("connection", function (socket) {
   const namespace = socket.nsp;
   console.log("connected");
-  namespace.emit(
+  socket.emit(
     "message",
     `successfully Connected on NAMESPACE: ${namespace.name}`
   );
+
+  //Send the calling signal to others
+  socket.on("calling", () => {
+    socket.broadcast.emit("calling");
+  });
+
+  //send the singal to others
+  socket.on("signal", ({ description, candidate }) => {
+    console.log(`Received a singal from ${socket.id}`);
+    console.log({ description, candidate });
+    socket.broadcast.emit("singal", { description, candidate });
+  });
 });
 
 // error handler
