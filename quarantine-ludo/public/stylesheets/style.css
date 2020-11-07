@@ -176,39 +176,73 @@ video {
     Todays edit 7 nov
 
 */
-.container-box {
+
+.container-input {
   max-width:100%;
+  max-height: 400px;
   border: 2px solid #dedede;
   background-color: #7e7979;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
   margin-left: 5px;
   margin-right: 5px;
 }
 
+.container-box {
+  max-width:100%;
+  max-height: 400px;
+  border: 2px solid #dedede;
+  background-color: #7e7979;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+div.ex1 {
+  overflow: scroll;
+}
 .container-left {
   max-width:100%;
-  min-width:150px;
+  min-width:auto;
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
-  padding: 5px;
   margin: 10px 0;
+  padding-left: 3px;
   margin-left: 5px;
   margin-right: 5px;
   float:  left;
   clear: left;
 }
+ul {
+  overflow: scroll;
+  margin-bottom: 5px;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 6px;
+  flex-direction: row-reverse;
+}
 
+li{
+   display: table;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  padding: 6px;
+  background-color: #CCC;
+  border-radius: 6px;
+  flex: 0 1 auto;
+  max-width: 70%;
+  min-width: 0;
+}
 .container-right {
   max-width:100%;
-  min-width:150px;
+  min-width:auto;
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
-  padding: 5px;
   margin: 10px 0;
+  padding-right: 3px;
   margin-left: 5px;
   margin-right: 5px;
   float:  right;
