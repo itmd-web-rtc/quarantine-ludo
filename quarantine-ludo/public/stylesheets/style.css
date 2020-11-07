@@ -149,57 +149,9 @@ video {
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 5px;
 }
 
-.box {
-  width: 300px;
-  margin: 10px auto;
-  background: #800080;
-  padding: 15px;
-  text-align: center;
-  font-weight: 900;
-  color: #fff;
-  font-family: arial;
-  position:relative;
-}
-.box2 {
-  width: 300px;
-  margin: 10px auto;
-  background: #FF0080;
-  padding: 15px;
-  text-align: center;
-  font-weight: 900;
-  color: #fff;
-  font-family: arial;
-  position:relative;
-}
-
-.sb1:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid #800080;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #800080;
-  border-bottom: 10px solid transparent;
-  right: -19px;
-  top: 6px;
-}
-
-
-.sb2:after {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid transparent;
-  border-right: 10px solid #FF0080;
-  border-top: 10px solid #FF0080;
-  border-bottom: 10px solid transparent;
-  left: -19px;
-  top: 6px;
-}
 
 #myBtn {
   background: #119b48;
@@ -210,8 +162,47 @@ video {
   border-radius: 4px;
   cursor: pointer;
   height: 35px;
+  margin-right: 3px;
+
 }
 
 #myInput {
   height: 30px;
+  margin-left: 5px; 
+  margin-right: 5px;
+}
+
+/*
+    Todays edit 7 nov
+
+*/
+.container-box {
+  border: 2px solid #dedede;
+  background-color: #7e7979;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
 }
