@@ -177,6 +177,7 @@ video {
 
 */
 .container-box {
+  max-width:100%;
   border: 2px solid #dedede;
   background-color: #7e7979;
   border-radius: 5px;
@@ -186,7 +187,9 @@ video {
   margin-right: 5px;
 }
 
-.container {
+.container-left {
+  max-width:100%;
+  min-width:150px;
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
@@ -194,6 +197,22 @@ video {
   margin: 10px 0;
   margin-left: 5px;
   margin-right: 5px;
+  float:  left;
+  clear: left;
+}
+
+.container-right {
+  max-width:100%;
+  min-width:150px;
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  margin-left: 5px;
+  margin-right: 5px;
+  float:  right;
+  clear: right;
 }
 
 .darker {
