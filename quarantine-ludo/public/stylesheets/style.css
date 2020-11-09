@@ -221,7 +221,6 @@ ul {
   display: flex;
   flex-flow: column wrap;
   padding: 6px;
-  flex-direction: row-reverse;
 }
 
 li{
