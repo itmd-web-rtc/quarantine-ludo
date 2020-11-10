@@ -17,114 +17,88 @@
       </a>
     </nav>
     <section class="room-main">
-      <div class="room-game-wrapper">
-        <div class="game-grid">
-          <!-- Temporary Remove background colors when implementing-->
-          <div
-            class="game-grid-col"
-            style="background-color: azure; width: 100%; color: black"
-          >
-          <button
-            class="chat-send-button">Chat</button>
-          <div class="container-box ex1" >
-            <ul > 
-              <div class="row">
-                  <li class="container-left">
-                    <p>  Hello. ?</p>
-                  </li>
-                </div>
-
-                <div class="row">
-                  <li class="container-right darker">
-                    <p>Hey!!</p>
-                  </li>
-                </div>
-                <div class="row">
-                  <li class="container-left">
-                    <p>Sweet!na do today?</p>
-                  </li>
-                </div>
-                <div class="row">
-                  <li class="container-right darker">
-                    <p>Nah, I dunno. Play Ludo.. or learn more coding perhaps?</p>
-                  </li>
-                </div>
-                  <div class="row">
-                  <li class="container-right darker">
-                    <p>Nah, I dunno. haps?</p>
-                  </li>
-                </div>
-                  <div class="row">
-                  <li class="container-right darker">
-                    <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                  </li>
-                </div>
-            </ul>
+      <div class="room-wrapper">
+        <div class="room-game-grid">
+          <div class="room-chat">
+            <aside class="chat">
+              <ul id="chat-log">
+                <li class="darker">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="darker">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="self">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="darker">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="self">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="darker">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+                <li class="self">
+                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
+                </li>
+              </ul>
+              <form id="chat-form"><input id="message" name="message" type="text" autocomplete="off" />
+                <button id="send-button" name="send-button" type="submit">Send</button>
+              </form>
+          </aside>
         </div>
-        
-          
-        
-        <div class="container-box">
-            <input id="myInput" placeholder="Enter text.." size="35">
-            <button id="myBtn" onclick="javascript:alert('Hello World!')">Enter</button>
+          <div class="room-game">
+  
           </div>
+  
+          <div class="room-link">
+  
           </div>
-          
-        
-          <div
-            class="game-grid-col"
-            style="background-color: beige; width: 100%; color: black"
-          >
-            Game Board
+  
+          <div class="room-video-grid">
+            <div class="room-video">
+              <div class="player-name">Player 1</div>
+                <video
+                  class="room-video-stream"
+                  width="100%"
+                  height="100%"
+                  autoplay
+                  playsinline>
+                </video>
+              </div>
+            <div class="room-video">
+              <div class="player-name">Player 1</div>
+                <video
+                  class="room-video-stream"
+                  width="100%"
+                  height="100%"
+                  autoplay
+                  playsinline>
+                </video>
+            </div>
+            <div class="room-video">
+              <div class="player-name">Player 1</div>
+                <video
+                  class="room-video-stream"
+                  width="100%"
+                  height="100%"
+                  autoplay
+                  playsinline>
+                </video>
+            </div>
+            <div class="room-video">
+              <div class="player-name">Player 1</div>
+                <video
+                  class="room-video-stream"
+                  width="100%"
+                  height="100%"
+                  autoplay
+                  playsinline>
+                </video>
+            </div>
           </div>
-          <div
-            class="game-grid-col"
-            style="background-color: bisque; width: 100%; color: black"
-          >
-            Share Link and Other options
-          </div>
-        </div>
-      </div>
-      <div class="room-video-wrapper">
-        <div class="room-video">
-          <div class="player-name">Player 1</div>
-          <video
-            class="room-video-stream"
-            width="100%"
-            height="100%"
-            autoplay
-            playsinline
-          ></video>
-        </div>
-        <div class="room-video">
-          <div class="player-name">Player 2</div>
-          <video
-            class="room-video-stream"
-            width="100%"
-            height="100%"
-            autoplay
-            playsinline
-          ></video>
-        </div>
-        <div class="room-video">
-          <div class="player-name">Player 3</div>
-          <video
-            class="room-video-stream"
-            width="100%"
-            height="100%"
-            autoplay
-            playsinline
-          ></video>
-        </div>
-        <div class="room-video">
-          <div class="player-name">Player 4</div>
-          <video
-            class="room-video-stream"
-            width="100%"
-            height="100%"
-            autoplay
-            playsinline
-          ></video>
         </div>
       </div>
     </section>
