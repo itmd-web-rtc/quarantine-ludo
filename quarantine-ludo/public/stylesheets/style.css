@@ -198,22 +198,11 @@ video {
   margin-right: 5px;
 }
 
-<<<<<<< HEAD
-.container-input {
-  max-width:100%;
-  max-height: 400px;
-  border: 2px solid #dedede;
-  background-color: #7e7979;
-  border-radius: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-=======
 
 
 .darker {
   border-color: #ccc;
   background-color: #ddd;
->>>>>>> 5afa8be1d42846e61d288c06937fb8d34e193acd
 }
 
 
