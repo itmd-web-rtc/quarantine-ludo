@@ -61,30 +61,37 @@ nav {
   cursor: pointer;
 }
 
+
+video {
+  object-fit: cover;
+  border-radius: 10px;
+  min-height: 100%;
+  min-width: 100%;
+}
 .wrapper {
   display: grid;
   height: 100%;
-  grid-template-columns: 2fr 1fr;
-  justify-items: center;
+  grid-template-columns: 70% 30%;
   align-items: center;
 }
 
 .displayVideoTest {
   border-radius: 25px;
-  text-align: center;
-  justify-items: center;
+  justify-self: center;
   height: 400px;
   width: 80%;
+  max-width: 700px;
   background-color: black;
   border: 1px solid #e8e8e8;
 }
 
-video {
-  object-fit: cover;
-  border-radius: 10px;
+.createButton {
+  justify-self: left;
 }
 
-*/ .room-body {
+
+
+.room-body {
   margin: 0;
   width: 100%;
   margin-top: 70px;
@@ -95,29 +102,62 @@ video {
   position: fixed;
   width: 100%;
 }
-.room-game-wrapper {
-  height: calc(88vh - 100px);
+.room-wrapper {
+  height: calc(100vh - 80px);
   width: 100%;
-  display: block;
-}
-.room-video-wrapper {
   display: grid;
+  grid-template-rows: 70% 30%;
+}
+
+.room-game-grid{
+  grid-template-columns: 25% 60% 15%;
+  display: grid;
+  grid-template-rows: 100%
+}
+
+.room-chat{
+  grid-row-start: 1;
+  grid-column-start: 1;
   height: 100%;
-  width: 100%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.room-game{
+  grid-row-start: 1;
+  grid-column-start: 2;
+  background-color: blue;
+}
+
+.room-link{
+  grid-row-start: 1;
+  grid-column-start: 3;
+  background-color: red;
+}
+.room-video-grid{
+  grid-row-start: 2;
+  display: grid;
+  grid-row: 100%;
+  height: 100%;
+  grid-column: span 3;
+  grid-template-columns: 25% 25% 25% 25%;
   justify-items: center;
 }
 
+
 .room-video {
-  height: 200px;
+  border-radius: 25px;
+  justify-self: center;
+  height: 100%;
   width: 98%;
-  background-color: black;
+  max-width: 98%;
+  max-height: 240px;
   border-radius: 10px;
+  background-color: black;
   border: 1px solid #e8e8e8;
 }
 
 .room-video-stream {
   object-fit: scale-down;
+  border-radius: 10px;
 }
 
 .player-name {
@@ -127,20 +167,8 @@ video {
   margin: 1%;
 }
 
-.game-grid {
-  display: grid;
-  height: 100%;
-  width: 100%;
-  grid-template-columns: 0.8fr 2fr 0.4fr;
-  justify-items: center;
-}
 
-.game-grid-col {
-  padding-top: 70px;
-}
-
-
-.chat-send-button{
+.chat-send-button {
   background-color: #119b48;
   border: none;
   color: white;
@@ -152,7 +180,6 @@ video {
   margin-left: 5px;
 }
 
-
 #myBtn {
   background: #119b48;
   border: none;
@@ -163,15 +190,15 @@ video {
   cursor: pointer;
   height: 35px;
   margin-right: 3px;
-
 }
 
 #myInput {
   height: 30px;
-  margin-left: 5px; 
+  margin-left: 5px;
   margin-right: 5px;
 }
 
+<<<<<<< HEAD
 .container-input {
   max-width:100%;
   max-height: 400px;
@@ -180,76 +207,77 @@ video {
   border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
-}
+=======
 
-.container-box {
-  max-width:100%;
-  max-height: 400px;
-  border: 2px solid #dedede;
-  background-color: #7e7979;
-  border-radius: 5px;
-  padding: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-
-div.ex1 {
-  overflow: scroll;
-}
-.container-left {
-  max-width:100%;
-  min-width:auto;
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  margin: 10px 0;
-  padding-left: 3px;
-  margin-left: 5px;
-  margin-right: 5px;
-  float:  left;
-  clear: left;
-}
-ul {
-  overflow: scroll;
-  margin-bottom: 5px;
-  display: flex;
-  flex-flow: column wrap;
-  padding: 6px;
-}
-
-li{
-   display: table;
-  box-sizing: border-box;
-  margin-bottom: 6px;
-  padding: 6px;
-  background-color: #CCC;
-  border-radius: 6px;
-  flex: 0 1 auto;
-  max-width: 70%;
-  min-width: 0;
-}
-.container-right {
-  max-width:100%;
-  min-width:auto;
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  margin: 10px 0;
-  padding-right: 3px;
-  margin-left: 5px;
-  margin-right: 5px;
-  float:  right;
-  clear: right;
-}
 
 .darker {
   border-color: #ccc;
   background-color: #ddd;
+>>>>>>> 5afa8be1d42846e61d288c06937fb8d34e193acd
 }
 
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
+
+/*
+Today - Dhiraj Jain
+*/
+
+#chat-form {
+  display: flex;
+}
+#chat-form > input {
+  outline: none;
+  width: 70%;
+  height: 25px;
+  margin-right: 1%;
+}
+#chat-form > input:focus {
+  border-color: #A5F;
+  
+}
+#chat-form > button {
+  width: 60px;
+  min-width: 5%;
+  background-color: #119b48;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  height:35px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#chat-form > * {
+  flex: 1 1 auto;
+}
+
+aside.chat {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px;
+  max-width: 100%;
+  height: 80%;
+}
+ul#chat-log {
+  overflow: scroll;
+  height: 80%;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 6px;
+}
+ul#chat-log li {
+  margin-bottom: 6px;
+  padding: 6px;
+  background-color: #CCC;
+  border-radius: 6px;
+  max-width: 60%;
+  font-size: 1em;
+}
+ul#chat-log li.peer {
+  margin-right: auto;
+}
+ul#chat-log li.self {
+  margin-left: auto;
+  background-color: #A5F;
+  color: #FFF;
 }
