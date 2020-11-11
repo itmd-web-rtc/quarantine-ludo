@@ -42,10 +42,10 @@ namespaces.on("connection", function (socket) {
   });
 
   //send the singal to others
-  socket.on("signal", ({ description, candidate }) => {
+  socket.on('signal', function({ description, candidate }) {
     console.log(`Received a singal from ${socket.id}`);
     console.log({ description, candidate });
-    socket.broadcast.emit("singal", { description, candidate });
+    socket.broadcast.emit('signal', { description, candidate });
   });
 });
 

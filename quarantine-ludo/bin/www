@@ -6,7 +6,10 @@
 
 var { app, io } = require("../app");
 var debug = require("debug")("quarantine-ludo:server");
+const fs = require('fs');
 var http = require("http");
+const https = require('https');
+
 
 /**
  * Get port from environment and store in Express.
@@ -18,8 +21,23 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
+const key = fs.readFileSync("key.pem");
+const cert = fs.readFileSync("cert.pem");
 
-var server = http.createServer(app);
+if (key && cert) {
+  // Use key locations to run https
+  const https = require('https');
+ 
+  // Cannot use const because of conditional assignment
+  var server = https.createServer({key: key, cert: cert }, app);
+
+} else {
+  // Fall back to http if key locations are not defined
+  const http = require('http');
+  var server = http.createServer(app);
+}
+
+
 io.attach(server);
 /**
  * Listen on provided port, on all network interfaces.
