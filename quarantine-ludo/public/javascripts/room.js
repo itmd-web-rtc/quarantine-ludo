@@ -31,6 +31,7 @@ function appendMsgToChatLog(log, msg, who){
   var li = document.createElement('li');
   var msg = document.createTextNode(msg);
   li.appendChild(msg);
+  li.className = who;
   log.appendChild(li);
   if(chatLog.scrollTo){
     chatLog.scrollTo({
@@ -42,6 +43,52 @@ function appendMsgToChatLog(log, msg, who){
   }
 }
 
+
+function addDataChannelEventListner(datachannel){
+
+  datachannel.onmessage = function(e){
+    appendMsgToChatLog(chatLog, e.data, 'peer');
+  }
+
+  datachannel.onopen = function(){
+    chatButton.disabled = false;
+    chatInput.disabled = false;
+  }
+
+  datachannel.onclose = function(){
+    chatButton.disabled = true;
+    chatInput.disabled = true;
+  }
+
+  chatForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = chatInput.value;
+    appendMsgToChatLog(chatLog, msg, 'self');
+    datachannel.send(msg);
+    chatInput.value = '';
+  });
+
+}
+
+
+//Once the RTC connection is steup and connected the peer will open data channel
+pc.onconnectionstatechange = function(e){
+  if(pc.connectionState == 'connected'){
+    if(clientIs.polite) {
+      console.log("Creating a data channel on the initiating side");
+      dc = pc.createDataChannel('text chat');
+      addDataChannelEventListner(dc);
+    }
+  }
+}
+
+//listen for datachannel
+// This will on fire on receiving end of the connection
+pc.ondatachannel = function(e){
+  console.log("Data Channel is open");
+  dc = e.channel;
+  addDataChannelEventListner(dc);
+}
 
 //video Streams
 var media_constraints = {video: true, audio: false};
