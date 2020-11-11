@@ -8,6 +8,7 @@ body {
   margin-top: 70px;
   height: calc(100vh - 100px);
 }
+
 nav {
   width: 100%;
   margin: 0;
@@ -33,7 +34,7 @@ nav {
   color: white;
   padding: 10px 32px;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1em;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -76,13 +77,12 @@ video {
 }
 
 .displayVideoTest {
-  border-radius: 25px;
-  justify-self: center;
-  height: 400px;
+  justify-self: right;
+  height: 80%;
   width: 80%;
-  max-width: 700px;
-  background-color: black;
-  border: 1px solid #e8e8e8;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('/images/logo.png');
 }
 
 .createButton {
@@ -200,7 +200,7 @@ video {
 
 
 
-.darker {
+.peer {
   border-color: #ccc;
   background-color: #ddd;
 }
@@ -269,4 +269,15 @@ ul#chat-log li.self {
   margin-left: auto;
   background-color: #A5F;
   color: #FFF;
+}
+
+#call-button, #answer-button {
+  background-color: #119b48;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer; 
 }

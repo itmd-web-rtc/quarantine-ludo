@@ -22,30 +22,9 @@
           <div class="room-chat">
             <aside class="chat">
               <ul id="chat-log">
-                <li class="darker">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="darker">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="self">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="darker">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="self">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="darker">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
-                <li class="self">
-                  <p>Nah, I dunno. Play Ludo.. oaps?</p>
-                </li>
               </ul>
-              <form id="chat-form"><input id="message" name="message" type="text" autocomplete="off" />
-                <button id="send-button" name="send-button" type="submit">Send</button>
+              <form id="chat-form" action="#null"><input id="message" disabled="true" name="message" type="text" autocomplete="off" />
+                <button id="send-button" disabled="true" name="send-button" type="submit">Send</button>
               </form>
           </aside>
         </div>
@@ -54,7 +33,7 @@
           </div>
   
           <div class="room-link">
-  
+            <button id="call-button">Call</button>
           </div>
   
           <div class="room-video-grid">
@@ -62,6 +41,7 @@
               <div class="player-name">Player 1</div>
                 <video
                   class="room-video-stream"
+                  id="self-video"
                   width="100%"
                   height="100%"
                   autoplay
@@ -69,7 +49,18 @@
                 </video>
               </div>
             <div class="room-video">
-              <div class="player-name">Player 1</div>
+              <div class="player-name">Player 2</div>
+                <video
+                id="peer-video"
+                  class="room-video-stream"
+                  width="100%"
+                  height="100%"
+                  autoplay
+                  playsinline>
+                </video>
+            </div>
+            <div class="room-video">
+              <div class="player-name">Player 3</div>
                 <video
                   class="room-video-stream"
                   width="100%"
@@ -79,17 +70,7 @@
                 </video>
             </div>
             <div class="room-video">
-              <div class="player-name">Player 1</div>
-                <video
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
-            </div>
-            <div class="room-video">
-              <div class="player-name">Player 1</div>
+              <div class="player-name">Player 4</div>
                 <video
                   class="room-video-stream"
                   width="100%"
@@ -105,8 +86,9 @@
     <script>
       window.NAMESPACE = `<%- namespace %>`;
     </script>
+    
     <script src="/socket.io/socket.io.js"></script>
-    <script src="javascripts/main.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="javascripts/room.js"></script>
   </body>
 </html>
