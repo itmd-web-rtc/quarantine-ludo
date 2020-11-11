@@ -82,9 +82,14 @@ async function negotiateConnection() {
     try {
       console.log("Making Offer");
       clientIs.makingOffer = true;
-      await pc.setLocalDescription();
-      sc.emit('signal', { description: pc.localDescription});
-
+      try {
+        await pc.setLocalDescription();
+      } catch (error) {
+        var offer = await pc.createOffer();
+          await pc.setLocalDescription(new RTCSessionDescription(offer));
+      }finally{
+        sc.emit('signal', { description: pc.localDescription});
+      }
     } catch (error) {
       console.log(error);
     }finally{
@@ -109,15 +114,24 @@ sc.on('signal', async function({candidate, description}){
       //if it's offer you need to answer
       if(description.type == 'offer'){
         console.log("Offer description");
-        await pc.setLocalDescription();
-        sc.emit('signal', {description: pc.localDescription});
+
+        try {
+          //works for latest browsers
+          await pc.setLocalDescription();
+        } catch (error) {
+          //works for older browsers we pass the answer we created using RTCSession
+          var answer = await pc.createAnswer();
+          await pc.setLocalDescription(new RTCSessionDescription(answer));
+        } finally{
+          sc.emit('signal', {description: pc.localDescription});
+        }    
       }
 
     }else if(candidate){
       console.log('Received a candidate:');
       console.log(candidate);
       //safari fix for the blank candidate
-      if(candidate.candidate > 1){
+      if(candidate.candidate.length > 1){
         await pc.addIceCandidate(candidate);
       }
       
