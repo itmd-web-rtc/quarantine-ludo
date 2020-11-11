@@ -65,13 +65,65 @@ function startCall(){
 
 sc.on('calling', () => {
   console.log("Receving Side on the room");
+  negotiateConnection();
   callButton.innerText = "Answer Call";
   callButton.id = "answer-button";
   callButton.removeEventListener('click', startCall);
   callButton.addEventListener('click', ()=>{
     callButton.hidden = true;
     startStream();
-    negotiateConnection();
+    
   });
 });
 
+
+async function negotiateConnection() {
+  pc.onnegotiationneeded = async function() {
+    try {
+      console.log("Making Offer");
+      clientIs.makingOffer = true;
+      await pc.setLocalDescription();
+      sc.emit('signal', { description: pc.localDescription});
+
+    } catch (error) {
+      console.log(error);
+    }finally{
+      clientIs.makingOffer = false;
+    }
+  }
+}
+
+sc.on('signal', async function({candidate, description}){
+  try {
+    if(description){
+      console.log("Received a description!!!");
+      var OfferCollision = (description.type == 'offer')  && (clientIs.makingOffer  || pc.signalingState != 'stable');
+      clientIs.ignoringOffer = !clientIs.polite && OfferCollision;
+      if(clientIs.ignoringOffer){
+        return;
+      }
+
+      // Set the remote decription
+      await pc.setRemoteDescription(description);
+
+      //if it's offer you need to answer
+      if(description.type == 'offer'){
+        console.log("Offer description");
+        await pc.setLocalDescription();
+        sc.emit('signal', {description: pc.localDescription});
+      }
+
+    }else if(candidate){
+      console.log('Received a candidate:');
+      console.log(candidate);
+      await pc.addIceCandidate(candidate);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//logic to send candidate
+pc.onicecandidate = function({candidate}){
+  sc.emit('signal', {candidate: candidate});
+}
