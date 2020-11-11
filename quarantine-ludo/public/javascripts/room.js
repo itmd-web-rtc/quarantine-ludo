@@ -16,6 +16,32 @@ var rtc_config = null;
 //Setting basic to get peer connection
 var pc = new RTCPeerConnection(rtc_config);
 
+//set data channel
+var dc = null;
+
+//declare DOM elements for chat
+var chatLog = document.querySelector('#chat-log');
+var chatForm = document.querySelector('#chat-form');
+var chatInput = document.querySelector('#message');
+var chatButton = document.querySelector('#send-button');
+
+
+function appendMsgToChatLog(log, msg, who){
+
+  var li = document.createElement('li');
+  var msg = document.createTextNode(msg);
+  li.appendChild(msg);
+  log.appendChild(li);
+  if(chatLog.scrollTo){
+    chatLog.scrollTo({
+      top: chatLog.scrollHeight,
+      behavior: 'smooth'
+    });
+  }else{
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+}
+
 
 //video Streams
 var media_constraints = {video: true, audio: false};
