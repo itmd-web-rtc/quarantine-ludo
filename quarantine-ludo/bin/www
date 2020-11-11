@@ -21,8 +21,16 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
-const key = fs.readFileSync("key.pem");
-const cert = fs.readFileSync("cert.pem");
+
+var key;
+var cert;
+try {
+  key = fs.readFileSync("");
+  cert = fs.readFileSync("");
+} catch (error) {
+  console.log("No Certificates");
+}
+
 
 if (key && cert) {
   // Use key locations to run https
