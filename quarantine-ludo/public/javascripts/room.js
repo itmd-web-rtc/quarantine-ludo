@@ -116,7 +116,11 @@ sc.on('signal', async function({candidate, description}){
     }else if(candidate){
       console.log('Received a candidate:');
       console.log(candidate);
-      await pc.addIceCandidate(candidate);
+      //safari fix for the blank candidate
+      if(candidate.candidate > 1){
+        await pc.addIceCandidate(candidate);
+      }
+      
     }
   } catch (error) {
     console.log(error);
