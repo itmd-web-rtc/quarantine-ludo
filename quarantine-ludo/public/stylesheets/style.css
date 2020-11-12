@@ -270,17 +270,6 @@ ul#chat-log li.self {
   color: #FFF;
 }
 
-ul#chat-log li.join {
-  color: green;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 0.6em;
-  list-style: none;
-  background: none;
-  border: none;
-}
-
-
 #join-button {
   background-color: #119b48;
   border: none;
