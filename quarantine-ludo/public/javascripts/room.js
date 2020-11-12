@@ -63,9 +63,12 @@ function addDataChannelEventListner(datachannel){
   chatForm.addEventListener('submit', function(e){
     e.preventDefault();
     var msg = chatInput.value;
-    appendMsgToChatLog(chatLog, msg, 'self');
-    datachannel.send(msg);
-    chatInput.value = '';
+    msg = msg.trim();
+    if(msg !== ""){
+      appendMsgToChatLog(chatLog, msg, 'self');
+      datachannel.send(msg);
+      chatInput.value = '';
+    }
   });
 
 }
@@ -91,7 +94,7 @@ pc.ondatachannel = function(e){
 }
 
 //video Streams
-var media_constraints = {video: true, audio: false};
+var media_constraints = {video: true, audio: true};
 
 var selfVideo = document.querySelector('#self-video');
 var selfStream = new MediaStream();
@@ -99,6 +102,7 @@ selfVideo.srcObject = selfStream;
 
 var peerVideo = document.querySelector('#peer-video');
 var peerStream = new MediaStream();
+console.log(peerStream);
 peerVideo.srcObject = peerStream;
 
 
@@ -110,45 +114,31 @@ async function startStream() {
     }
 
     selfVideo.srcObject = stream;
+    sc.emit('joined', 'Someone Joined the chat!');
   } catch(error){
 
   }
 }
 
+sc.on('joined', function(e){
+  appendMsgToChatLog(chatLog,e,"join");
+})
 
 pc.ontrack = (track) => {
   peerStream.addTrack(track.track);
 }
 
-var callButton = document.querySelector('#call-button');
+var callButton = document.querySelector('#join-button');
 
-callButton.addEventListener('click', startCall);
+callButton.addEventListener('click', joinCall);
 
 
-function startCall(){
-  console.log("Calling Side on the room");
-  callButton.hidden = true;
+function joinCall(){
   clientIs.polite = true;
-  sc.emit('calling');
+  negotiateConnection();
   startStream();
-  negotiateConnection();
+  callButton.hidden = true;
 }
-
-//handle calling event on the recevier side
-
-sc.on('calling', () => {
-  console.log("Receving Side on the room");
-  negotiateConnection();
-  callButton.innerText = "Answer Call";
-  callButton.id = "answer-button";
-  callButton.removeEventListener('click', startCall);
-  callButton.addEventListener('click', ()=>{
-    callButton.hidden = true;
-    startStream();
-    
-  });
-});
-
 
 async function negotiateConnection() {
   pc.onnegotiationneeded = async function() {
@@ -187,7 +177,6 @@ sc.on('signal', async function({candidate, description}){
       //if it's offer you need to answer
       if(description.type == 'offer'){
         console.log("Offer description");
-
         try {
           //works for latest browsers
           await pc.setLocalDescription();

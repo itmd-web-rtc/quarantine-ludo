@@ -90,7 +90,6 @@ video {
 }
 
 
-
 .room-body {
   margin: 0;
   width: 100%;
@@ -220,7 +219,7 @@ Today - Dhiraj Jain
   margin-right: 1%;
 }
 #chat-form > input:focus {
-  border-color: #A5F;
+  border-color: #3857A7;
   
 }
 #chat-form > button {
@@ -267,11 +266,22 @@ ul#chat-log li.peer {
 }
 ul#chat-log li.self {
   margin-left: auto;
-  background-color: #A5F;
+  background-color: #3857A7;
   color: #FFF;
 }
 
-#call-button, #answer-button {
+ul#chat-log li.join {
+  color: green;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.6em;
+  list-style: none;
+  background: none;
+  border: none;
+}
+
+
+#join-button {
   background-color: #119b48;
   border: none;
   color: white;
