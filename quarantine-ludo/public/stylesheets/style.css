@@ -90,7 +90,6 @@ video {
 }
 
 
-
 .room-body {
   margin: 0;
   width: 100%;
@@ -271,7 +270,7 @@ ul#chat-log li.self {
   color: #FFF;
 }
 
-#call-button, #answer-button {
+#join-button {
   background-color: #119b48;
   border: none;
   color: white;
