@@ -25,14 +25,29 @@ var chatLog = document.querySelector('#chat-log');
 var chatForm = document.querySelector('#chat-form');
 var chatInput = document.querySelector('#message');
 var chatButton = document.querySelector('#send-button');
-
+var joinForm = document.querySelector('#join-form');
+var joinName = document.querySelector('#join-name');
 
 function appendMsgToChatLog(log, msg, who){
 
   var li = document.createElement('li');
+
+  //Add timestampn to chat messages
+  var br = document.createElement('br');
+  var span = document.createElement('span');
+  span.className = "chat-time";
+
+
   var msg = document.createTextNode(msg);
   li.appendChild(msg);
   li.className = who;
+  if(who !== "join"){
+    li.appendChild(br);
+    li.appendChild(span);
+  }
+
+  //add current timestamp
+  span.innerText = new Date().toLocaleTimeString('en-US', { hour12: true, hour: "numeric", minute: "numeric"});
   log.appendChild(li);
   if(chatLog.scrollTo){
     chatLog.scrollTo({
@@ -95,7 +110,7 @@ pc.ondatachannel = function(e){
 }
 
 //video Streams
-var media_constraints = {video: true, audio: true};
+var media_constraints = {video: true, audio: false};
 
 var selfVideo = document.querySelector('#self-video');
 var selfStream = new MediaStream();
@@ -107,7 +122,7 @@ console.log(peerStream);
 peerVideo.srcObject = peerStream;
 
 
-async function startStream() {
+async function startStream(name) {
   try{
     var stream = await navigator.mediaDevices.getUserMedia(media_constraints);
     for( var track of stream.getTracks()){
@@ -115,7 +130,9 @@ async function startStream() {
     }
 
     selfVideo.srcObject = stream;
-    sc.emit('joined', 'Someone Joined the chat!');
+    //send joined message with current timestamp
+    sc.emit('joined', `${name} joined the chat! at ${new Date().toLocaleTimeString('en-US', 
+                                                    { hour12: true, hour: "numeric", minute: "numeric"})}`);
   } catch(error){
 
   }
@@ -131,14 +148,21 @@ pc.ontrack = (track) => {
 
 var callButton = document.querySelector('#join-button');
 
-callButton.addEventListener('click', joinCall);
+callButton.addEventListener('click', function(e){
+  e.preventDefault();
+  if(joinName.value !== ""){
+    joinCall(joinName.value);
+  }else{
+    alert('Enter your Name!');
+  }
+});
 
 
-function joinCall(){
+function joinCall(name){
   clientIs.polite = true;
   negotiateConnection();
-  startStream();
-  callButton.hidden = true;
+  startStream(name);
+  joinForm.hidden = true;
 }
 
 async function negotiateConnection() {
