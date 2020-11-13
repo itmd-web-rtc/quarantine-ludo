@@ -25,7 +25,8 @@ var chatLog = document.querySelector('#chat-log');
 var chatForm = document.querySelector('#chat-form');
 var chatInput = document.querySelector('#message');
 var chatButton = document.querySelector('#send-button');
-
+var joinForm = document.querySelector('#join-form');
+var joinName = document.querySelector('#join-name');
 
 function appendMsgToChatLog(log, msg, who){
 
@@ -107,7 +108,7 @@ console.log(peerStream);
 peerVideo.srcObject = peerStream;
 
 
-async function startStream() {
+async function startStream(name) {
   try{
     var stream = await navigator.mediaDevices.getUserMedia(media_constraints);
     for( var track of stream.getTracks()){
@@ -115,7 +116,7 @@ async function startStream() {
     }
 
     selfVideo.srcObject = stream;
-    sc.emit('joined', 'Someone Joined the chat!');
+    sc.emit('joined', `${name} joined the chat!`);
   } catch(error){
 
   }
@@ -131,14 +132,21 @@ pc.ontrack = (track) => {
 
 var callButton = document.querySelector('#join-button');
 
-callButton.addEventListener('click', joinCall);
+callButton.addEventListener('click', function(e){
+  e.preventDefault();
+  if(joinName.value !== ""){
+    joinCall(joinName.value);
+  }else{
+    alert('Enter your Name!');
+  }
+});
 
 
-function joinCall(){
+function joinCall(name){
   clientIs.polite = true;
   negotiateConnection();
-  startStream();
-  callButton.hidden = true;
+  startStream(name);
+  joinForm.hidden = true;
 }
 
 async function negotiateConnection() {

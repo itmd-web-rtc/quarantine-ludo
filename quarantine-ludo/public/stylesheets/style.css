@@ -129,7 +129,7 @@ video {
 .room-link{
   grid-row-start: 1;
   grid-column-start: 3;
-  background-color: red;
+ 
 }
 .room-video-grid{
   grid-row-start: 2;
@@ -288,4 +288,31 @@ ul#chat-log li.join {
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer; 
+}
+
+
+#join-form {
+  align-items: center;
+}
+
+#join-form > input {
+  outline: none;
+  width: 70%;
+  display: flex;
+  height: 25px;
+  margin: auto;
+  margin-top: 20%;
+  justify-self: center;
+  
+}
+
+#join-button{
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+}
+
+#join-form > input:focus {
+  border-color: #3857A7;
+  
 }
