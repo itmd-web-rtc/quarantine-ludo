@@ -31,9 +31,23 @@ var joinName = document.querySelector('#join-name');
 function appendMsgToChatLog(log, msg, who){
 
   var li = document.createElement('li');
+
+  //Add timestampn to chat messages
+  var br = document.createElement('br');
+  var span = document.createElement('span');
+  span.className = "chat-time";
+
+
   var msg = document.createTextNode(msg);
   li.appendChild(msg);
   li.className = who;
+  if(who !== "join"){
+    li.appendChild(br);
+    li.appendChild(span);
+  }
+
+  //add current timestamp
+  span.innerText = new Date().toLocaleTimeString('en-US', { hour12: true, hour: "numeric", minute: "numeric"});
   log.appendChild(li);
   if(chatLog.scrollTo){
     chatLog.scrollTo({
@@ -96,7 +110,7 @@ pc.ondatachannel = function(e){
 }
 
 //video Streams
-var media_constraints = {video: true, audio: true};
+var media_constraints = {video: true, audio: false};
 
 var selfVideo = document.querySelector('#self-video');
 var selfStream = new MediaStream();
@@ -116,7 +130,9 @@ async function startStream(name) {
     }
 
     selfVideo.srcObject = stream;
-    sc.emit('joined', `${name} joined the chat!`);
+    //send joined message with current timestamp
+    sc.emit('joined', `${name} joined the chat! at ${new Date().toLocaleTimeString('en-US', 
+                                                    { hour12: true, hour: "numeric", minute: "numeric"})}`);
   } catch(error){
 
   }

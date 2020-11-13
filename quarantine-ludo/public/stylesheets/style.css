@@ -316,3 +316,12 @@ ul#chat-log li.join {
   border-color: #3857A7;
   
 }
+
+ul#chat-log li.join > span {
+  font-size: 0.7em;
+}
+.chat-time{
+  float: right; 
+  font-size: 0.5em;
+  margin-top: 0.5em;
+}
