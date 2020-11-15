@@ -28,6 +28,8 @@ var chatButton = document.querySelector("#send-button");
 var joinForm = document.querySelector("#join-form");
 var joinName = document.querySelector("#join-name");
 
+
+
 function appendMsgToChatLog(log, msg, who) {
   var li = document.createElement("li");
 
@@ -136,8 +138,16 @@ async function startStream(name) {
         minute: "numeric",
       })}`
     );
+
+    
+    //Player name Display
+    console.log("Join Name = "+ joinName.value);
+
+
+
   } catch (error) {}
 }
+
 
 sc.on("joined", function (e) {
   appendMsgToChatLog(chatLog, e, "join");
@@ -170,6 +180,7 @@ async function negotiateConnection() {
     try {
       console.log("Making Offer");
       clientIs.makingOffer = true;
+      document.getElementById("p1").innerHTML=joinName.value;
       try {
         await pc.setLocalDescription();
       } catch (error) {
@@ -207,6 +218,7 @@ sc.on("signal", async function ({ candidate, description }) {
       try {
         console.log("Trying to set a remote description:\n", description);
         clientIs.settingRemoteAnswerPending = description.type == "answer";
+        document.getElementById("p1").innerHTML=joinName.value;
         await pc.setRemoteDescription(description);
         clientIs.settingRemoteAnswerPending = false;
       } catch (error) {
@@ -216,6 +228,7 @@ sc.on("signal", async function ({ candidate, description }) {
       //if it's offer you need to answer
       if (description.type == "offer") {
         console.log("Offer description");
+        
         try {
           //works for latest browsers
           await pc.setLocalDescription();
@@ -226,10 +239,13 @@ sc.on("signal", async function ({ candidate, description }) {
             var offer;
             console.log("Trying to prepare an answer:");
             offer = await pc.createAnswer();
+            
+
           } else {
             // otherwise, create an offer
             console.log("Trying to prepare an offer:");
             offer = await pc.createOffer();
+            
           }
 
           await pc.setLocalDescription(new RTCSessionDescription(offer));
@@ -244,6 +260,7 @@ sc.on("signal", async function ({ candidate, description }) {
       try {
         if (candidate.candidate.length > 1) {
           await pc.addIceCandidate(candidate);
+
         }
       } catch (error) {
         if (!clientIs.ignoringOffer) {
