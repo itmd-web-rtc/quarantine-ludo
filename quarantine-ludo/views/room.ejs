@@ -21,65 +21,99 @@
         <div class="room-game-grid">
           <div class="room-chat">
             <aside class="chat">
-              <ul id="chat-log">
-              </ul>
-              <form id="chat-form" action="#null"><input id="message" disabled="true" name="message" type="text" autocomplete="off" />
-                <button id="send-button" disabled="true" name="send-button" type="submit">Send</button>
+              <ul id="chat-log"></ul>
+              <form id="chat-form" action="#null">
+                <input
+                  id="message"
+                  disabled="true"
+                  name="message"
+                  type="text"
+                  autocomplete="off"
+                />
+                <button
+                  id="send-button"
+                  disabled="true"
+                  name="send-button"
+                  type="submit"
+                >
+                  Send
+                </button>
               </form>
-          </aside>
-        </div>
-          <div class="room-game">
-  
+            </aside>
+          </div>
+          <div class="room-game-wrapper">
+            <div id="left-layer" class="left-layer">
+              <canvas id="home-block-green" class="home-block-green"> </canvas>
+              <canvas id="play-block-green" class="play-block-green"> </canvas>
+              <canvas id="home-block-red" class="home-block-red"> </canvas>
+            </div>
+            <div id="middle-layer" class="middle-layer">
+              <canvas id="play-block-yellow" class="play-block-yellow"> </canvas>
+
+              <canvas id="finish-block" class="finish-block"> </canvas>
+              <canvas id="play-block-red" class="play-block-red"> </canvas>
+            </div>
+            <div id="right-layer" class="right-layer">
+              <canvas id="home-block-yellow" class="home-block-yellow"> </canvas>
+              <canvas id="play-block-blue" class="play-block-blue"> </canvas>
+              <canvas id="home-block-blue" class="home-block-blue"> </canvas>
+            </div>
           </div>
           <div class="room-link">
-            <form id="join-form"><input id="join-name" placeholder="Enter Name" name="join-name" type="text" autocomplete="off" />
+            <form id="join-form">
+              <input
+                id="join-name"
+                placeholder="Enter Name"
+                name="join-name"
+                type="text"
+                autocomplete="off"
+              />
               <button id="join-button">Join Call</button>
             </form>
-            
           </div>
-  
+
           <div class="room-video-grid">
             <div class="room-video">
               <div class="player-name">Player 1</div>
-                <video
-                  class="room-video-stream"
-                  id="self-video"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
-              </div>
+              <video
+                class="room-video-stream"
+                id="self-video"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
+            </div>
             <div class="room-video">
               <div class="player-name">Player 2</div>
-                <video
+              <video
                 id="peer-video"
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
             <div class="room-video">
               <div class="player-name">Player 3</div>
-                <video
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+              <video
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
             <div class="room-video">
               <div class="player-name">Player 4</div>
-                <video
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+              <video
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
           </div>
         </div>
@@ -88,7 +122,7 @@
     <script>
       window.NAMESPACE = `<%- namespace %>`;
     </script>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="javascripts/room.js"></script>
