@@ -120,22 +120,50 @@ video {
 
 .room-game-wrapper {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 40% 20% 40%;
   /* grid-row-start: 1;
   grid-column-start: 2; */
   /* background-color: blue; */
 }
 
 .left-layer {
+  display: grid;
+  position:relative;
   grid-template-rows: 40% 20% 40%;
 }
 
 .middle-layer {
+  display: grid;
+  position:relative;
   grid-template-rows: 40% 20% 40%;
 }
 
 .right-layer {
+  display: grid;
+  position:relative;
   grid-template-rows: 40% 20% 40%;
+}
+
+.home-block-green{
+  position:relative;
+  background-color: green;
+}
+
+.home-block-red{
+  background-color: red;
+}
+
+.home-block-blue{
+  background-color: blue;
+}
+
+.home-block-yellow{
+  width: 100%;
+  background-color: yellow;
+}
+
+.finish-block{
+  background-color: grey;
 }
 
 .room-link {
