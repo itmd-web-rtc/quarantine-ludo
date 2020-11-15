@@ -262,7 +262,12 @@ pc.onicecandidate = function ({ candidate }) {
 
 function createHomeSquares(ctx, x, y){
   ctx.beginPath();
-  ctx.strokeRect(x, y, 50, 50);
+  ctx.strokeStyle = 'grey'
+  ctx.fillStyle = 'white'
+  ctx.lineWidth = 5
+  ctx.rect(x, y, 50, 50);
+  ctx.fill()
+  ctx.stroke()
 }
 
 function setWidthAndHeightOfLeftLayer() {
@@ -289,6 +294,25 @@ function setWidthAndHeightOfLeftLayer() {
 
   playBlockGreen.width = leftLayer.offsetWidth;
   playBlockGreen.height = (20 * leftLayer.offsetHeight) / 100;
+  let ctx5 = playBlockGreen.getContext("2d");
+  //drawPlayBlockGrid(ctx5, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  ctx5.strokeStyle = "black";
+  ctx5.lineWidth = 4;
+  
+  for(let i = 0; i <= leftLayer.offsetWidth; i+=leftLayer.offsetWidth/6){
+    console.log("in for loop")
+    ctx5.beginPath(); 
+    ctx5.moveTo(i,0)
+    ctx5.lineTo(i,playBlockGreen.width)
+    ctx5.stroke()
+  }
+
+  for(let i = 0; i <= playBlockGreen.height; i+=playBlockGreen.height/3){
+    console.log("in for loop")
+    ctx5.moveTo(0,i)
+    ctx5.lineTo(playBlockGreen.width, i)
+    ctx5.stroke()
+  }
 
   homeBlockRed.width = leftLayer.offsetWidth;
   homeBlockRed.height = (40 * leftLayer.offsetHeight) / 100;
@@ -315,12 +339,69 @@ function setWidthAndHeightOfMiddleLayer() {
   let middleLayer = document.querySelector("#middle-layer");
   playBlockYellow.width = middleLayer.offsetWidth;
   playBlockYellow.height = (40 * middleLayer.offsetHeight) / 100;
+  let ctx7 = playBlockYellow.getContext("2d");
+  //drawPlayBlockGrid(ctx7, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  ctx7.strokeStyle = "black";
+  ctx7.lineWidth = 4;
+  
+  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
+    console.log("in for loop")
+    ctx7.beginPath(); 
+    ctx7.moveTo(i,0)
+    ctx7.lineTo(i,playBlockYellow.width)
+    ctx7.stroke()
+  }
+
+  for(let i = 0; i <= playBlockYellow.height; i+=playBlockYellow.height/6){
+    console.log("in for loop")
+    ctx7.moveTo(0,i)
+    ctx7.lineTo(playBlockYellow.height, i)
+    ctx7.stroke()
+  }
 
   finishBlock.width = middleLayer.offsetWidth;
   finishBlock.height = (20 * middleLayer.offsetHeight) / 100;
+  let ctx9 = finishBlock.getContext("2d");
+  //drawPlayBlockGrid(ctx7, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  ctx9.strokeStyle = "black";
+  ctx9.lineWidth = 4;
+  
+  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
+    console.log("in for loop")
+    ctx9.beginPath(); 
+    ctx9.moveTo(i,0)
+    ctx9.lineTo(i,finishBlock.width)
+    ctx9.stroke()
+  }
+
+  for(let i = 0; i <= finishBlock.height; i+=finishBlock.height/3){
+    console.log("in for loop")
+    ctx9.moveTo(0,i)
+    ctx9.lineTo(playBlockYellow.height, i)
+    ctx9.stroke()
+  }
 
   playBlockRed.width = middleLayer.offsetWidth;
   playBlockRed.height = (40 * middleLayer.offsetHeight) / 100;
+  let ctx8 = playBlockRed.getContext("2d");
+  //drawPlayBlockGrid(ctx8, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  ctx8.strokeStyle = "black";
+  ctx8.lineWidth = 4;
+  
+  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
+    console.log("in for loop")
+    ctx8.beginPath(); 
+    ctx8.moveTo(i,0)
+    ctx8.lineTo(i,playBlockRed.width)
+    ctx8.stroke()
+  }
+
+  for(let i = 0; i <= playBlockRed.height; i+=playBlockRed.height/6){
+    console.log("in for loop")
+    ctx8.moveTo(0,i)
+    ctx8.lineTo(playBlockYellow.width, i)
+    ctx8.stroke()
+  }
 
 }
 
@@ -349,6 +430,25 @@ function setWidthAndHeightOfRightLayer() {
 
   playBlockBlue.width = rightLayer.offsetWidth;
   playBlockBlue.height = (20 * rightLayer.offsetHeight) / 100;
+  let ctx6 = playBlockBlue.getContext("2d");
+  //drawPlayBlockGrid(ctx6, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  ctx6.strokeStyle = "black";
+  ctx6.lineWidth = 4;
+  
+  for(let i = 0; i <= rightLayer.offsetWidth; i+=rightLayer.offsetWidth/6){
+    console.log("in for loop")
+    ctx6.beginPath(); 
+    ctx6.moveTo(i,0)
+    ctx6.lineTo(i,playBlockBlue.width)
+    ctx6.stroke()
+  }
+
+  for(let i = 0; i <= playBlockBlue.height; i+=playBlockBlue.height/3){
+    console.log("in for loop")
+    ctx6.moveTo(0,i)
+    ctx6.lineTo(playBlockBlue.width, i)
+    ctx6.stroke()
+  }
 
   homeBlockBlue.width = rightLayer.offsetWidth;
   homeBlockBlue.height = (40 * rightLayer.offsetHeight) / 100;
