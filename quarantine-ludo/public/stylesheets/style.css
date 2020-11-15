@@ -62,7 +62,6 @@ nav {
   cursor: pointer;
 }
 
-
 video {
   object-fit: cover;
   border-radius: 10px;
@@ -82,13 +81,12 @@ video {
   width: 80%;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('/images/logo.png');
+  background-image: url("/images/logo.png");
 }
 
 .createButton {
   justify-self: left;
 }
-
 
 .room-body {
   margin: 0;
@@ -108,30 +106,43 @@ video {
   grid-template-rows: 70% 30%;
 }
 
-.room-game-grid{
+.room-game-grid {
   grid-template-columns: 25% 60% 15%;
   display: grid;
-  grid-template-rows: 100%
+  grid-template-rows: 100%;
 }
 
-.room-chat{
+.room-chat {
   grid-row-start: 1;
   grid-column-start: 1;
   height: 100%;
 }
 
-.room-game{
-  grid-row-start: 1;
-  grid-column-start: 2;
-  background-color: blue;
+.room-game-wrapper {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  /* grid-row-start: 1;
+  grid-column-start: 2; */
+  /* background-color: blue; */
 }
 
-.room-link{
+.left-layer {
+  grid-template-rows: 40% 20% 40%;
+}
+
+.middle-layer {
+  grid-template-rows: 40% 20% 40%;
+}
+
+.right-layer {
+  grid-template-rows: 40% 20% 40%;
+}
+
+.room-link {
   grid-row-start: 1;
   grid-column-start: 3;
- 
 }
-.room-video-grid{
+.room-video-grid {
   grid-row-start: 2;
   display: grid;
   grid-row: 100%;
@@ -140,7 +151,6 @@ video {
   grid-template-columns: 25% 25% 25% 25%;
   justify-items: center;
 }
-
 
 .room-video {
   border-radius: 25px;
@@ -165,7 +175,6 @@ video {
   position: absolute;
   margin: 1%;
 }
-
 
 .chat-send-button {
   background-color: #119b48;
@@ -197,13 +206,10 @@ video {
   margin-right: 5px;
 }
 
-
-
 .peer {
   border-color: #ccc;
   background-color: #ddd;
 }
-
 
 /*
 Today - Dhiraj Jain
@@ -219,8 +225,7 @@ Today - Dhiraj Jain
   margin-right: 1%;
 }
 #chat-form > input:focus {
-  border-color: #3857A7;
-  
+  border-color: #3857a7;
 }
 #chat-form > button {
   width: 60px;
@@ -230,7 +235,7 @@ Today - Dhiraj Jain
   color: white;
   text-decoration: none;
   font-size: 1em;
-  height:35px;
+  height: 35px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -256,7 +261,7 @@ ul#chat-log {
 ul#chat-log li {
   margin-bottom: 6px;
   padding: 6px;
-  background-color: #CCC;
+  background-color: #ccc;
   border-radius: 6px;
   max-width: 60%;
   font-size: 1em;
@@ -266,8 +271,8 @@ ul#chat-log li.peer {
 }
 ul#chat-log li.self {
   margin-left: auto;
-  background-color: #3857A7;
-  color: #FFF;
+  background-color: #3857a7;
+  color: #fff;
 }
 
 ul#chat-log li.join {
@@ -287,9 +292,8 @@ ul#chat-log li.join {
   text-decoration: none;
   font-size: 14px;
   border-radius: 4px;
-  cursor: pointer; 
+  cursor: pointer;
 }
-
 
 #join-form {
   align-items: center;
@@ -303,25 +307,23 @@ ul#chat-log li.join {
   margin: auto;
   margin-top: 20%;
   justify-self: center;
-  
 }
 
-#join-button{
+#join-button {
   display: flex;
   margin: auto;
   margin-top: 10px;
 }
 
 #join-form > input:focus {
-  border-color: #3857A7;
-  
+  border-color: #3857a7;
 }
 
 ul#chat-log li.join > span {
   font-size: 0.7em;
 }
-.chat-time{
-  float: right; 
+.chat-time {
+  float: right;
   font-size: 0.5em;
   margin-top: 0.5em;
 }
