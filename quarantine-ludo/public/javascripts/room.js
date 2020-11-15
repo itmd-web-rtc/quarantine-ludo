@@ -260,6 +260,11 @@ pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
 };
 
+function createHomeSquares(ctx, x, y){
+  ctx.beginPath();
+  ctx.strokeRect(x, y, 50, 50);
+}
+
 function setWidthAndHeightOfLeftLayer() {
   let homeBlockGreen = document.querySelector("#home-block-green");
   let homeBlockRed = document.querySelector("#home-block-red");
@@ -267,50 +272,99 @@ function setWidthAndHeightOfLeftLayer() {
 
   let leftLayer = document.querySelector("#left-layer");
   homeBlockGreen.width = leftLayer.offsetWidth;
-  homeBlockGreen.height = 40 * leftLayer.offsetHeight / 100
+  homeBlockGreen.height = (40 * leftLayer.offsetHeight) / 100;
+  ctx1 = homeBlockGreen.getContext("2d");
+
+  // outlined square X: 50, Y: 35, width/height 50
+  createHomeSquares(ctx1, 50, 35)
+
+   // outlined square X: 175, Y: 35, width/height 50
+   createHomeSquares(ctx1, 175, 35)
+
+   // outlined square X: 50, Y: 125, width/height 50
+   createHomeSquares(ctx1, 50, 125)
+
+    // outlined square X: 175, Y: 125, width/height 50
+    createHomeSquares(ctx1, 175, 125)
 
   playBlockGreen.width = leftLayer.offsetWidth;
-  playBlockGreen.height = 20 * leftLayer.offsetHeight / 100
+  playBlockGreen.height = (20 * leftLayer.offsetHeight) / 100;
 
   homeBlockRed.width = leftLayer.offsetWidth;
-  homeBlockRed.height = 40 * leftLayer.offsetHeight / 100
+  homeBlockRed.height = (40 * leftLayer.offsetHeight) / 100;
+  ctx2 = homeBlockRed.getContext("2d");
+    // outlined square X: 50, Y: 35, width/height 50
+    createHomeSquares(ctx2, 50, 35)
+
+    // outlined square X: 175, Y: 35, width/height 50
+    createHomeSquares(ctx2, 175, 35)
+ 
+    // outlined square X: 50, Y: 125, width/height 50
+    createHomeSquares(ctx2, 50, 125)
+ 
+     // outlined square X: 175, Y: 125, width/height 50
+     createHomeSquares(ctx2, 175, 125)
 }
-setWidthAndHeightOfLeftLayer()
+setWidthAndHeightOfLeftLayer();
 
 function setWidthAndHeightOfMiddleLayer() {
-
   let playBlockYellow = document.querySelector("#play-block-yellow");
-  let finishBlock = document.querySelector("#finish-block")
+  let finishBlock = document.querySelector("#finish-block");
   let playBlockRed = document.querySelector("#play-block-red");
 
-  let middleLayer = document.querySelector("#middle-layer")
-  playBlockYellow.width = middleLayer.offsetWidth
-  playBlockYellow.height = 40 * middleLayer.offsetHeight / 100
+  let middleLayer = document.querySelector("#middle-layer");
+  playBlockYellow.width = middleLayer.offsetWidth;
+  playBlockYellow.height = (40 * middleLayer.offsetHeight) / 100;
 
-  finishBlock.width = middleLayer.offsetWidth
-  finishBlock.height = 20 * middleLayer.offsetHeight / 100
+  finishBlock.width = middleLayer.offsetWidth;
+  finishBlock.height = (20 * middleLayer.offsetHeight) / 100;
 
-  playBlockRed.width = middleLayer.offsetWidth
-  playBlockRed.height = 40 * middleLayer.offsetHeight / 100
+  playBlockRed.width = middleLayer.offsetWidth;
+  playBlockRed.height = (40 * middleLayer.offsetHeight) / 100;
+
 }
 
-setWidthAndHeightOfMiddleLayer()
+setWidthAndHeightOfMiddleLayer();
 
 function setWidthAndHeightOfRightLayer() {
-
   let homeBlockYellow = document.querySelector("#home-block-yellow");
   let playBlockBlue = document.querySelector("#play-block-blue");
   let homeBlockBlue = document.querySelector("#home-block-blue");
 
   let rightLayer = document.querySelector("#right-layer");
-  homeBlockYellow.width = rightLayer.offsetWidth
-  homeBlockYellow.height = 40 * rightLayer.offsetHeight / 100
+  homeBlockYellow.width = rightLayer.offsetWidth;
+  homeBlockYellow.height = (40 * rightLayer.offsetHeight) / 100;
+  ctx3 = homeBlockYellow.getContext("2d");
+  // outlined square X: 50, Y: 35, width/height 50
+  createHomeSquares(ctx3, 50, 35)
 
-  playBlockBlue.width = rightLayer.offsetWidth
-  playBlockBlue.height =  20 * rightLayer.offsetHeight / 100
+   // outlined square X: 175, Y: 35, width/height 50
+   createHomeSquares(ctx3, 175, 35)
 
-  homeBlockBlue.width = rightLayer.offsetWidth
-  homeBlockBlue.height = 40 * rightLayer.offsetHeight / 100
+   // outlined square X: 50, Y: 125, width/height 50
+   createHomeSquares(ctx3, 50, 125)
+
+    // outlined square X: 175, Y: 125, width/height 50
+    createHomeSquares(ctx3, 175, 125)
+
+  playBlockBlue.width = rightLayer.offsetWidth;
+  playBlockBlue.height = (20 * rightLayer.offsetHeight) / 100;
+
+  homeBlockBlue.width = rightLayer.offsetWidth;
+  homeBlockBlue.height = (40 * rightLayer.offsetHeight) / 100;
+  ctx4 = homeBlockBlue.getContext("2d");
+
+  // outlined square X: 50, Y: 35, width/height 50
+  createHomeSquares(ctx4, 50, 35)
+
+   // outlined square X: 175, Y: 35, width/height 50
+   createHomeSquares(ctx4, 175, 35)
+
+   // outlined square X: 50, Y: 125, width/height 50
+   createHomeSquares(ctx4, 50, 125)
+
+    // outlined square X: 175, Y: 125, width/height 50
+    createHomeSquares(ctx4, 175, 125)
 }
 
-setWidthAndHeightOfRightLayer()
+setWidthAndHeightOfRightLayer();

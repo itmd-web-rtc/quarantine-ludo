@@ -164,6 +164,11 @@ video {
   background-color: grey;
 }
 
+.play-block-red, .play-block-green, .play-block-blue, .play-block-yellow{
+  background-color: beige;
+}
+
+
 .room-link {
   grid-row-start: 1;
   grid-column-start: 3;
