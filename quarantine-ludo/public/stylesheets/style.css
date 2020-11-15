@@ -145,7 +145,6 @@ video {
 }
 
 .home-block-green{
-  position:relative;
   background-color: green;
 }
 
@@ -158,7 +157,6 @@ video {
 }
 
 .home-block-yellow{
-  width: 100%;
   background-color: yellow;
 }
 

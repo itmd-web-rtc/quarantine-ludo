@@ -260,12 +260,57 @@ pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
 };
 
-function setWidthAndHeight() {
-  console.log("here")
-  var homeBlockGreen = document.querySelector("#home-block-green");
-  var leftLayer = document.querySelector("#left-layer");
-  homeBlockGreen.style.width ='100%';
-  homeBlockGreen.width = homeBlockGreen.offsetWidth;
+function setWidthAndHeightOfLeftLayer() {
+  let homeBlockGreen = document.querySelector("#home-block-green");
+  let homeBlockRed = document.querySelector("#home-block-red");
+  let playBlockGreen = document.querySelector("#play-block-green");
+
+  let leftLayer = document.querySelector("#left-layer");
+  homeBlockGreen.width = leftLayer.offsetWidth;
+  homeBlockGreen.height = 40 * leftLayer.offsetHeight / 100
+
+  playBlockGreen.width = leftLayer.offsetWidth;
+  playBlockGreen.height = 20 * leftLayer.offsetHeight / 100
+
+  homeBlockRed.width = leftLayer.offsetWidth;
+  homeBlockRed.height = 40 * leftLayer.offsetHeight / 100
+}
+setWidthAndHeightOfLeftLayer()
+
+function setWidthAndHeightOfMiddleLayer() {
+
+  let playBlockYellow = document.querySelector("#play-block-yellow");
+  let finishBlock = document.querySelector("#finish-block")
+  let playBlockRed = document.querySelector("#play-block-red");
+
+  let middleLayer = document.querySelector("#middle-layer")
+  playBlockYellow.width = middleLayer.offsetWidth
+  playBlockYellow.height = 40 * middleLayer.offsetHeight / 100
+
+  finishBlock.width = middleLayer.offsetWidth
+  finishBlock.height = 20 * middleLayer.offsetHeight / 100
+
+  playBlockRed.width = middleLayer.offsetWidth
+  playBlockRed.height = 40 * middleLayer.offsetHeight / 100
 }
 
-setWidthAndHeight()
+setWidthAndHeightOfMiddleLayer()
+
+function setWidthAndHeightOfRightLayer() {
+
+  let homeBlockYellow = document.querySelector("#home-block-yellow");
+  let playBlockBlue = document.querySelector("#play-block-blue");
+  let homeBlockBlue = document.querySelector("#home-block-blue");
+
+  let rightLayer = document.querySelector("#right-layer");
+  homeBlockYellow.width = rightLayer.offsetWidth
+  homeBlockYellow.height = 40 * rightLayer.offsetHeight / 100
+
+  playBlockBlue.width = rightLayer.offsetWidth
+  playBlockBlue.height =  20 * rightLayer.offsetHeight / 100
+
+  homeBlockBlue.width = rightLayer.offsetWidth
+  homeBlockBlue.height = 40 * rightLayer.offsetHeight / 100
+}
+
+setWidthAndHeightOfRightLayer()
