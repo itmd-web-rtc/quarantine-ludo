@@ -28,6 +28,8 @@ var chatButton = document.querySelector("#send-button");
 var joinForm = document.querySelector("#join-form");
 var joinName = document.querySelector("#join-name");
 
+
+
 function appendMsgToChatLog(log, msg, who) {
   var li = document.createElement("li");
 
@@ -36,8 +38,8 @@ function appendMsgToChatLog(log, msg, who) {
   var span = document.createElement("span");
   span.className = "chat-time";
 
-  var msg = document.createTextNode(msg);
-  li.appendChild(msg);
+  var msg1 = document.createTextNode(msg);
+  li.appendChild(msg1);
   li.className = who;
   if (who !== "join") {
     li.appendChild(br);
@@ -78,11 +80,11 @@ function addDataChannelEventListner(datachannel) {
 
   chatForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    var msg = chatInput.value;
-    msg = msg.trim();
-    if (msg !== "") {
-      appendMsgToChatLog(chatLog, msg, "self");
-      datachannel.send(msg);
+    var msg2 = chatInput.value;
+    msg2= msg2.trim();
+    if (msg2 !== "") {
+      appendMsgToChatLog(chatLog, msg2, "self");
+      datachannel.send(msg2);
       chatInput.value = "";
     }
   });
@@ -136,8 +138,16 @@ async function startStream(name) {
         minute: "numeric",
       })}`
     );
+
+    
+    //Player name Display
+    console.log("Join Name = "+ joinName.value);
+
+
+
   } catch (error) {}
 }
+
 
 sc.on("joined", function (e) {
   appendMsgToChatLog(chatLog, e, "join");
@@ -170,6 +180,7 @@ async function negotiateConnection() {
     try {
       console.log("Making Offer");
       clientIs.makingOffer = true;
+      document.getElementById("p1").innerHTML=joinName.value;
       try {
         await pc.setLocalDescription();
       } catch (error) {
@@ -207,6 +218,7 @@ sc.on("signal", async function ({ candidate, description }) {
       try {
         console.log("Trying to set a remote description:\n", description);
         clientIs.settingRemoteAnswerPending = description.type == "answer";
+        document.getElementById("p1").innerHTML=joinName.value;
         await pc.setRemoteDescription(description);
         clientIs.settingRemoteAnswerPending = false;
       } catch (error) {
@@ -216,6 +228,7 @@ sc.on("signal", async function ({ candidate, description }) {
       //if it's offer you need to answer
       if (description.type == "offer") {
         console.log("Offer description");
+        
         try {
           //works for latest browsers
           await pc.setLocalDescription();
@@ -223,12 +236,16 @@ sc.on("signal", async function ({ candidate, description }) {
           //works for older browsers we pass the answer we created using RTCSession
           if (pc.signalingState == "have-remote-offer") {
             // create a answer, if that's what's needed...
+            var offer;
             console.log("Trying to prepare an answer:");
-            var offer = await pc.createAnswer();
+            offer = await pc.createAnswer();
+            
+
           } else {
             // otherwise, create an offer
             console.log("Trying to prepare an offer:");
-            var offer = await pc.createOffer();
+            offer = await pc.createOffer();
+            
           }
 
           await pc.setLocalDescription(new RTCSessionDescription(offer));
@@ -243,6 +260,7 @@ sc.on("signal", async function ({ candidate, description }) {
       try {
         if (candidate.candidate.length > 1) {
           await pc.addIceCandidate(candidate);
+
         }
       } catch (error) {
         if (!clientIs.ignoringOffer) {
@@ -273,7 +291,7 @@ function setWidthAndHeightOfLeftLayer() {
   let leftLayer = document.querySelector("#left-layer");
   homeBlockGreen.width = leftLayer.offsetWidth;
   homeBlockGreen.height = (40 * leftLayer.offsetHeight) / 100;
-  ctx1 = homeBlockGreen.getContext("2d");
+  let ctx1 = homeBlockGreen.getContext("2d");
 
   // outlined square X: 50, Y: 35, width/height 50
   createHomeSquares(ctx1, 50, 35)
@@ -292,7 +310,7 @@ function setWidthAndHeightOfLeftLayer() {
 
   homeBlockRed.width = leftLayer.offsetWidth;
   homeBlockRed.height = (40 * leftLayer.offsetHeight) / 100;
-  ctx2 = homeBlockRed.getContext("2d");
+  let ctx2 = homeBlockRed.getContext("2d");
     // outlined square X: 50, Y: 35, width/height 50
     createHomeSquares(ctx2, 50, 35)
 
@@ -334,7 +352,7 @@ function setWidthAndHeightOfRightLayer() {
   let rightLayer = document.querySelector("#right-layer");
   homeBlockYellow.width = rightLayer.offsetWidth;
   homeBlockYellow.height = (40 * rightLayer.offsetHeight) / 100;
-  ctx3 = homeBlockYellow.getContext("2d");
+  let ctx3 = homeBlockYellow.getContext("2d");
   // outlined square X: 50, Y: 35, width/height 50
   createHomeSquares(ctx3, 50, 35)
 
@@ -352,7 +370,7 @@ function setWidthAndHeightOfRightLayer() {
 
   homeBlockBlue.width = rightLayer.offsetWidth;
   homeBlockBlue.height = (40 * rightLayer.offsetHeight) / 100;
-  ctx4 = homeBlockBlue.getContext("2d");
+  let ctx4 = homeBlockBlue.getContext("2d");
 
   // outlined square X: 50, Y: 35, width/height 50
   createHomeSquares(ctx4, 50, 35)
