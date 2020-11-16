@@ -260,14 +260,19 @@ pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
 };
 
-function createHomeSquares(ctx, x, y){
+function createHomeSquares(ctx, x, y, color) {
   ctx.beginPath();
-  ctx.strokeStyle = 'grey'
-  ctx.fillStyle = 'white'
-  ctx.lineWidth = 5
-  ctx.rect(x, y, 50, 50);
-  ctx.fill()
-  ctx.stroke()
+  ctx.strokeStyle = "grey";
+  ctx.fillStyle = "white";
+  ctx.lineWidth = 5;
+  ctx.fillRect(x, y, 50, 50);
+
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = color;
+  // x, y, radius, startAngle, endAngle, antiClockwise = false by default
+  ctx.arc(x + 25, y + 25, 15, 0, 2 * Math.PI, false); // full circle
+  ctx.fill();
+  ctx.stroke();
 }
 
 function setWidthAndHeightOfLeftLayer() {
@@ -281,16 +286,16 @@ function setWidthAndHeightOfLeftLayer() {
   ctx1 = homeBlockGreen.getContext("2d");
 
   // outlined square X: 50, Y: 35, width/height 50
-  createHomeSquares(ctx1, 50, 35)
+  createHomeSquares(ctx1, 50, 35, "green");
 
-   // outlined square X: 175, Y: 35, width/height 50
-   createHomeSquares(ctx1, 175, 35)
+  // outlined square X: 175, Y: 35, width/height 50
+  createHomeSquares(ctx1, 175, 35, "green");
 
-   // outlined square X: 50, Y: 125, width/height 50
-   createHomeSquares(ctx1, 50, 125)
+  // outlined square X: 50, Y: 125, width/height 50
+  createHomeSquares(ctx1, 50, 125, "green");
 
-    // outlined square X: 175, Y: 125, width/height 50
-    createHomeSquares(ctx1, 175, 125)
+  // outlined square X: 175, Y: 125, width/height 50
+  createHomeSquares(ctx1, 175, 125, "green");
 
   playBlockGreen.width = leftLayer.offsetWidth;
   playBlockGreen.height = (20 * leftLayer.offsetHeight) / 100;
@@ -298,36 +303,34 @@ function setWidthAndHeightOfLeftLayer() {
   //drawPlayBlockGrid(ctx5, leftLayer.offsetWidth, leftLayer.offsetWidth)
   ctx5.strokeStyle = "black";
   ctx5.lineWidth = 4;
-  
-  for(let i = 0; i <= leftLayer.offsetWidth; i+=leftLayer.offsetWidth/6){
-    console.log("in for loop")
-    ctx5.beginPath(); 
-    ctx5.moveTo(i,0)
-    ctx5.lineTo(i,playBlockGreen.width)
-    ctx5.stroke()
+
+  for (let i = 0; i <= leftLayer.offsetWidth; i += leftLayer.offsetWidth / 6) {
+    ctx5.beginPath();
+    ctx5.moveTo(i, 0);
+    ctx5.lineTo(i, playBlockGreen.width);
+    ctx5.stroke();
   }
 
-  for(let i = 0; i <= playBlockGreen.height; i+=playBlockGreen.height/3){
-    console.log("in for loop")
-    ctx5.moveTo(0,i)
-    ctx5.lineTo(playBlockGreen.width, i)
-    ctx5.stroke()
+  for (let i = 0; i <= playBlockGreen.height; i += playBlockGreen.height / 3) {
+    ctx5.moveTo(0, i);
+    ctx5.lineTo(playBlockGreen.width, i);
+    ctx5.stroke();
   }
 
   homeBlockRed.width = leftLayer.offsetWidth;
   homeBlockRed.height = (40 * leftLayer.offsetHeight) / 100;
   ctx2 = homeBlockRed.getContext("2d");
-    // outlined square X: 50, Y: 35, width/height 50
-    createHomeSquares(ctx2, 50, 35)
+  // outlined square X: 50, Y: 35, width/height 50
+  createHomeSquares(ctx2, 50, 35, "red");
 
-    // outlined square X: 175, Y: 35, width/height 50
-    createHomeSquares(ctx2, 175, 35)
- 
-    // outlined square X: 50, Y: 125, width/height 50
-    createHomeSquares(ctx2, 50, 125)
- 
-     // outlined square X: 175, Y: 125, width/height 50
-     createHomeSquares(ctx2, 175, 125)
+  // outlined square X: 175, Y: 35, width/height 50
+  createHomeSquares(ctx2, 175, 35, "red");
+
+  // outlined square X: 50, Y: 125, width/height 50
+  createHomeSquares(ctx2, 50, 125, "red");
+
+  // outlined square X: 175, Y: 125, width/height 50
+  createHomeSquares(ctx2, 175, 125, "red");
 }
 setWidthAndHeightOfLeftLayer();
 
@@ -343,20 +346,26 @@ function setWidthAndHeightOfMiddleLayer() {
   //drawPlayBlockGrid(ctx7, leftLayer.offsetWidth, leftLayer.offsetWidth)
   ctx7.strokeStyle = "black";
   ctx7.lineWidth = 4;
-  
-  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
-    console.log("in for loop")
-    ctx7.beginPath(); 
-    ctx7.moveTo(i,0)
-    ctx7.lineTo(i,playBlockYellow.width)
-    ctx7.stroke()
+
+  for (
+    let i = 0;
+    i <= middleLayer.offsetWidth;
+    i += middleLayer.offsetWidth / 3
+  ) {
+    ctx7.beginPath();
+    ctx7.moveTo(i, 0);
+    ctx7.lineTo(i, playBlockYellow.width);
+    ctx7.stroke();
   }
 
-  for(let i = 0; i <= playBlockYellow.height; i+=playBlockYellow.height/6){
-    console.log("in for loop")
-    ctx7.moveTo(0,i)
-    ctx7.lineTo(playBlockYellow.height, i)
-    ctx7.stroke()
+  for (
+    let i = 0;
+    i <= playBlockYellow.height;
+    i += playBlockYellow.height / 6
+  ) {
+    ctx7.moveTo(0, i);
+    ctx7.lineTo(playBlockYellow.height, i);
+    ctx7.stroke();
   }
 
   finishBlock.width = middleLayer.offsetWidth;
@@ -365,20 +374,22 @@ function setWidthAndHeightOfMiddleLayer() {
   //drawPlayBlockGrid(ctx7, leftLayer.offsetWidth, leftLayer.offsetWidth)
   ctx9.strokeStyle = "black";
   ctx9.lineWidth = 4;
-  
-  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
-    console.log("in for loop")
-    ctx9.beginPath(); 
-    ctx9.moveTo(i,0)
-    ctx9.lineTo(i,finishBlock.width)
-    ctx9.stroke()
+
+  for (
+    let i = 0;
+    i <= middleLayer.offsetWidth;
+    i += middleLayer.offsetWidth / 3
+  ) {
+    ctx9.beginPath();
+    ctx9.moveTo(i, 0);
+    ctx9.lineTo(i, finishBlock.width);
+    ctx9.stroke();
   }
 
-  for(let i = 0; i <= finishBlock.height; i+=finishBlock.height/3){
-    console.log("in for loop")
-    ctx9.moveTo(0,i)
-    ctx9.lineTo(playBlockYellow.height, i)
-    ctx9.stroke()
+  for (let i = 0; i <= finishBlock.height; i += finishBlock.height / 3) {
+    ctx9.moveTo(0, i);
+    ctx9.lineTo(playBlockYellow.height, i);
+    ctx9.stroke();
   }
 
   playBlockRed.width = middleLayer.offsetWidth;
@@ -387,22 +398,23 @@ function setWidthAndHeightOfMiddleLayer() {
   //drawPlayBlockGrid(ctx8, leftLayer.offsetWidth, leftLayer.offsetWidth)
   ctx8.strokeStyle = "black";
   ctx8.lineWidth = 4;
-  
-  for(let i = 0; i <= middleLayer.offsetWidth; i+=middleLayer.offsetWidth/3){
-    console.log("in for loop")
-    ctx8.beginPath(); 
-    ctx8.moveTo(i,0)
-    ctx8.lineTo(i,playBlockRed.width)
-    ctx8.stroke()
+
+  for (
+    let i = 0;
+    i <= middleLayer.offsetWidth;
+    i += middleLayer.offsetWidth / 3
+  ) {
+    ctx8.beginPath();
+    ctx8.moveTo(i, 0);
+    ctx8.lineTo(i, playBlockRed.width);
+    ctx8.stroke();
   }
 
-  for(let i = 0; i <= playBlockRed.height; i+=playBlockRed.height/6){
-    console.log("in for loop")
-    ctx8.moveTo(0,i)
-    ctx8.lineTo(playBlockYellow.width, i)
-    ctx8.stroke()
+  for (let i = 0; i <= playBlockRed.height; i += playBlockRed.height / 6) {
+    ctx8.moveTo(0, i);
+    ctx8.lineTo(playBlockYellow.width, i);
+    ctx8.stroke();
   }
-
 }
 
 setWidthAndHeightOfMiddleLayer();
@@ -417,16 +429,16 @@ function setWidthAndHeightOfRightLayer() {
   homeBlockYellow.height = (40 * rightLayer.offsetHeight) / 100;
   ctx3 = homeBlockYellow.getContext("2d");
   // outlined square X: 50, Y: 35, width/height 50
-  createHomeSquares(ctx3, 50, 35)
+  createHomeSquares(ctx3, 50, 35, "yellow");
 
-   // outlined square X: 175, Y: 35, width/height 50
-   createHomeSquares(ctx3, 175, 35)
+  // outlined square X: 175, Y: 35, width/height 50
+  createHomeSquares(ctx3, 175, 35, "yellow");
 
-   // outlined square X: 50, Y: 125, width/height 50
-   createHomeSquares(ctx3, 50, 125)
+  // outlined square X: 50, Y: 125, width/height 50
+  createHomeSquares(ctx3, 50, 125, "yellow");
 
-    // outlined square X: 175, Y: 125, width/height 50
-    createHomeSquares(ctx3, 175, 125)
+  // outlined square X: 175, Y: 125, width/height 50
+  createHomeSquares(ctx3, 175, 125, "yellow");
 
   playBlockBlue.width = rightLayer.offsetWidth;
   playBlockBlue.height = (20 * rightLayer.offsetHeight) / 100;
@@ -434,20 +446,22 @@ function setWidthAndHeightOfRightLayer() {
   //drawPlayBlockGrid(ctx6, leftLayer.offsetWidth, leftLayer.offsetWidth)
   ctx6.strokeStyle = "black";
   ctx6.lineWidth = 4;
-  
-  for(let i = 0; i <= rightLayer.offsetWidth; i+=rightLayer.offsetWidth/6){
-    console.log("in for loop")
-    ctx6.beginPath(); 
-    ctx6.moveTo(i,0)
-    ctx6.lineTo(i,playBlockBlue.width)
-    ctx6.stroke()
+
+  for (
+    let i = 0;
+    i <= rightLayer.offsetWidth;
+    i += rightLayer.offsetWidth / 6
+  ) {
+    ctx6.beginPath();
+    ctx6.moveTo(i, 0);
+    ctx6.lineTo(i, playBlockBlue.width);
+    ctx6.stroke();
   }
 
-  for(let i = 0; i <= playBlockBlue.height; i+=playBlockBlue.height/3){
-    console.log("in for loop")
-    ctx6.moveTo(0,i)
-    ctx6.lineTo(playBlockBlue.width, i)
-    ctx6.stroke()
+  for (let i = 0; i <= playBlockBlue.height; i += playBlockBlue.height / 3) {
+    ctx6.moveTo(0, i);
+    ctx6.lineTo(playBlockBlue.width, i);
+    ctx6.stroke();
   }
 
   homeBlockBlue.width = rightLayer.offsetWidth;
@@ -455,16 +469,16 @@ function setWidthAndHeightOfRightLayer() {
   ctx4 = homeBlockBlue.getContext("2d");
 
   // outlined square X: 50, Y: 35, width/height 50
-  createHomeSquares(ctx4, 50, 35)
+  createHomeSquares(ctx4, 50, 35, "blue");
 
-   // outlined square X: 175, Y: 35, width/height 50
-   createHomeSquares(ctx4, 175, 35)
+  // outlined square X: 175, Y: 35, width/height 50
+  createHomeSquares(ctx4, 175, 35, "blue");
 
-   // outlined square X: 50, Y: 125, width/height 50
-   createHomeSquares(ctx4, 50, 125)
+  // outlined square X: 50, Y: 125, width/height 50
+  createHomeSquares(ctx4, 50, 125, "blue");
 
-    // outlined square X: 175, Y: 125, width/height 50
-    createHomeSquares(ctx4, 175, 125)
+  // outlined square X: 175, Y: 125, width/height 50
+  createHomeSquares(ctx4, 175, 125, "blue");
 }
 
 setWidthAndHeightOfRightLayer();
