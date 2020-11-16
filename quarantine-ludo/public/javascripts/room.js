@@ -275,6 +275,23 @@ function createHomeSquares(ctx, x, y, color) {
   ctx.stroke();
 }
 
+function drawGrid(ctx, width, height, noOfRows, noOfCols){
+  ctx5.strokeStyle = "black";
+  ctx5.lineWidth = 4;
+  for (let i = 0; i <= width; i += width / noOfRows) {
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, width);
+    ctx.stroke();
+  }
+
+  for (let i = 0; i <= height; i += height / noOfCols) {
+    ctx.moveTo(0, i);
+    ctx.lineTo(width, i);
+    ctx.stroke();
+  }
+}
+
 function setWidthAndHeightOfLeftLayer() {
   let homeBlockGreen = document.querySelector("#home-block-green");
   let homeBlockRed = document.querySelector("#home-block-red");
@@ -301,10 +318,11 @@ function setWidthAndHeightOfLeftLayer() {
   playBlockGreen.height = (20 * leftLayer.offsetHeight) / 100;
   let ctx5 = playBlockGreen.getContext("2d");
   //drawPlayBlockGrid(ctx5, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  
   ctx5.strokeStyle = "black";
   ctx5.lineWidth = 4;
 
-  for (let i = 0; i <= leftLayer.offsetWidth; i += leftLayer.offsetWidth / 6) {
+  for (let i = 0; i <= playBlockGreen.width; i += playBlockGreen.width / 6) {
     ctx5.beginPath();
     ctx5.moveTo(i, 0);
     ctx5.lineTo(i, playBlockGreen.width);
@@ -349,8 +367,8 @@ function setWidthAndHeightOfMiddleLayer() {
 
   for (
     let i = 0;
-    i <= middleLayer.offsetWidth;
-    i += middleLayer.offsetWidth / 3
+    i <= playBlockYellow.width;
+    i += playBlockYellow.width / 3
   ) {
     ctx7.beginPath();
     ctx7.moveTo(i, 0);
@@ -364,7 +382,7 @@ function setWidthAndHeightOfMiddleLayer() {
     i += playBlockYellow.height / 6
   ) {
     ctx7.moveTo(0, i);
-    ctx7.lineTo(playBlockYellow.height, i);
+    ctx7.lineTo(playBlockYellow.width, i);
     ctx7.stroke();
   }
 
@@ -377,8 +395,8 @@ function setWidthAndHeightOfMiddleLayer() {
 
   for (
     let i = 0;
-    i <= middleLayer.offsetWidth;
-    i += middleLayer.offsetWidth / 3
+    i <= finishBlock.width;
+    i += finishBlock.width / 3
   ) {
     ctx9.beginPath();
     ctx9.moveTo(i, 0);
@@ -388,7 +406,7 @@ function setWidthAndHeightOfMiddleLayer() {
 
   for (let i = 0; i <= finishBlock.height; i += finishBlock.height / 3) {
     ctx9.moveTo(0, i);
-    ctx9.lineTo(playBlockYellow.height, i);
+    ctx9.lineTo(finishBlock.width, i);
     ctx9.stroke();
   }
 
@@ -401,8 +419,8 @@ function setWidthAndHeightOfMiddleLayer() {
 
   for (
     let i = 0;
-    i <= middleLayer.offsetWidth;
-    i += middleLayer.offsetWidth / 3
+    i <= playBlockRed.width;
+    i += playBlockRed.width / 3
   ) {
     ctx8.beginPath();
     ctx8.moveTo(i, 0);
@@ -412,7 +430,7 @@ function setWidthAndHeightOfMiddleLayer() {
 
   for (let i = 0; i <= playBlockRed.height; i += playBlockRed.height / 6) {
     ctx8.moveTo(0, i);
-    ctx8.lineTo(playBlockYellow.width, i);
+    ctx8.lineTo(playBlockRed.width, i);
     ctx8.stroke();
   }
 }
@@ -443,14 +461,14 @@ function setWidthAndHeightOfRightLayer() {
   playBlockBlue.width = rightLayer.offsetWidth;
   playBlockBlue.height = (20 * rightLayer.offsetHeight) / 100;
   let ctx6 = playBlockBlue.getContext("2d");
-  //drawPlayBlockGrid(ctx6, leftLayer.offsetWidth, leftLayer.offsetWidth)
+  //drawPlayBlockGrid(ctx6, leftLayer.offsetWidth, playBlockBlue.height)
   ctx6.strokeStyle = "black";
   ctx6.lineWidth = 4;
 
   for (
     let i = 0;
-    i <= rightLayer.offsetWidth;
-    i += rightLayer.offsetWidth / 6
+    i <= playBlockBlue.width;
+    i += playBlockBlue.width / 6
   ) {
     ctx6.beginPath();
     ctx6.moveTo(i, 0);
