@@ -283,6 +283,25 @@ pc.onicecandidate = function ({ candidate }) {
 //---------Ludo Game logic-----------
 
 //---Dice roll---
+var dice = document.querySelector("#dice-roll");
+var badtext = document.querySelector('#badtext');
+var text = document.querySelector('#player');
+var redpawn1 = document.querySelector('#redpawn1');
+var redpawn2 = document.querySelector('#redpawn2');
+var redpawn3 = document.querySelector('#redpawn3');
+var redpawn4 = document.querySelector('#redpawn4');
+var greenpawn1 = document.querySelector('#greenpawn1');
+var greenpawn2 = document.querySelector('#greenpawn2');
+var greenpawn3 = document.querySelector('#greenpawn3');
+var greenpawn4 = document.querySelector('#greenpawn4');
+var bluepawn1 = document.querySelector('#bluepawn1');
+var bluepawn2 = document.querySelector('#bluepawn2');
+var bluepawn3 = document.querySelector('#bluepawn3');
+var bluepawn4 = document.querySelector('#bluepawn4');
+var yellowpawn1 = document.querySelector('#yellowpawn1');
+var yellowpawn2 = document.querySelector('#yellowpawn2');
+var yellowpawn3 = document.querySelector('#yellowpawn3');
+var yellowpawn4 = document.querySelector('#yellowpawn4');
 
 var num = 0;
 var clicked = false;
@@ -290,49 +309,53 @@ var clicked = false;
 //Display player's turn
 function changePlayer() {
   if (num != 6){
-  var text = document.getElementById('player');
-  switch (text.innerText) {
-      case "red": text.innerText = text.style.color = "blue"; break;
-      case "blue": text.innerText = text.style.color = "yellow"; break;
-      case "yellow": text.innerText = text.style.color = "green"; break;
-      case "green": text.innerText = text.style.color = "red"; break;
+    switch (text.innerText) {
+        case "red": text.innerText = text.style.color = "blue"; break;
+        case "blue": text.innerText = text.style.color = "yellow"; break;
+        case "yellow": text.innerText = text.style.color = "green"; break;
+        case "green": text.innerText = text.style.color = "red"; break;
+    }
   }
-  }
-  var badtext = document.getElementById('badtext');
   badtext.innerText = "";
-  var dice = document.getElementById('dice');
   dice.style.backgroundImage = "url(images/dice.gif)";
 }
 
 //Check free pawns
 function DontHaveOtherFree() {
-  var text = document.getElementById('player');
-  var b = text.innerText+"block";
-  var block = document.getElementById(b);
-  var pawns = new Array(4);
-  for (var j = 1; j <=4; j++) {
-    var pawnname = text.innerText+"pawn"+j;
-    pawns.push(pawnname);
+  
+  var block;
+  if(text.innerText == 'green'){
+    block = document.querySelector('#greenblock');
+    if (block.contains(greenpawn1) || block.contains(greenpawn2) || block.contains(greenpawn3) || block.contains(greenpawn4))
+     return true;
+  }else if(text.innerText == 'yellow'){
+    block = document.querySelector('#yellowblock');
+    if (block.contains(yellowpawn1) || block.contains(yellowpawn2) || block.contains(yellowpawn3) || block.contains(yellowpawn4))
+     return true;
+  }else if(text.innerText == 'blue'){
+    block = document.querySelector('#blueblock');
+    if (block.contains(bluepawn1) || block.contains(bluepawn2) || block.contains(bluepawn3) || block.contains(bluepawn4))
+     return true;
+  }else{
+    block = document.querySelector('#redblock');
+    if (block.contains(redpawn1) || block.contains(redpawn2) || block.contains(redpawn3) || block.contains(redpawn4))
+     return true;
   }
-  for (var i = 1; i <=4; i++) {
-      if (block.contains(pawns[i])) return true;
-  }
+
   return false;
 }
 
 //Dice number logic
-function randomNum() {
+
+dice.addEventListener("click", function (e) {
   if (!clicked) {
-      num = Math.floor((Math.random() * 6) + 1);
-      var dice = document.getElementById('dice');
-      dice.style.backgroundImage = "url(images/" + num + ".jpg)";
-      clicked = true;
+    num = Math.floor((Math.random() * 6) + 1);
+    dice.style.backgroundImage = "url(images/" + num + ".jpg)";
+    clicked = true;
   }
   if (num != 6 && DontHaveOtherFree()) {
-      var bad = document.getElementById('badtext');
-      bad.innerText = "Unfortunately you are stuck";
+      badtext.innerText = "Unfortunately you are stuck";
       window.setTimeout(changePlayer, 1000);
       clicked = false;
   }
-}
-
+});

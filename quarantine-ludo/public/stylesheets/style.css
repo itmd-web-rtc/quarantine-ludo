@@ -317,7 +317,8 @@ ul#chat-log li.join > span {
   margin-top: 50px;
 }
 
-#uselesstext1{
+#uselesstext1,
+#badtext {
   float:left;
   padding-left:10px;
   padding-right:10px;
