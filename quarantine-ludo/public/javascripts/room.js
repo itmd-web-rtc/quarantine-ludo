@@ -307,10 +307,17 @@ function changePlayer() {
 //Check free pawns
 function DontHaveOtherFree() {
   var text = document.getElementById('player');
-  for (var i = 1; i <=4; i++) {
-      if (onboard[text.innerText + "pawn" + i] == 1 || positions[text.innerText + "pawn" + i]+num>=44) return false;
+  var b = text.innerText+"block";
+  var block = document.getElementById(b);
+  var pawns = new Array(4);
+  for (var j = 1; j <=4; j++) {
+    var pawnname = text.innerText+"pawn"+j;
+    pawns.push(pawnname);
   }
-  return true;
+  for (var i = 1; i <=4; i++) {
+      if (block.contains(pawns[i])) return true;
+  }
+  return false;
 }
 
 //Dice number logic
