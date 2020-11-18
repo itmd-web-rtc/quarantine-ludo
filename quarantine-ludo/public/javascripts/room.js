@@ -441,8 +441,23 @@ function randomMove(Color, paw, number) {
   clicked = false;
 }
 
-
+//Event listeners for pawns click
 redpawn1.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,1,n);
+});
+
+greenpawn1.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,1,n);
+});
+
+yellowpawn1.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,1,n);
+});
+
+bluepawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
