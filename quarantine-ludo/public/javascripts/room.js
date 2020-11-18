@@ -304,7 +304,29 @@ var yellowpawn3 = document.querySelector('#yellowpawn3');
 var yellowpawn4 = document.querySelector('#yellowpawn4');
 
 var num = 0;
+var n = 0;
 var clicked = false;
+var currcolor = "";
+var NumOfPaw = "";
+var currpawn = "";
+var currPos = "";
+var newPos = "";
+var positions = {
+  redpawn1: 0, redpawn2: 0, redpawn3: 0, redpawn4: 0,
+  bluepawn1: 0, bluepawn2: 0, bluepawn3: 0, bluepawn4: 0,
+  greenpawn1: 0, greenpawn2: 0, greenpawn3: 0, greenpawn4: 0,
+  yellowpawn1: 0, yellowpawn2: 0, yellowpawn3: 0, yellowpawn4: 0};
+
+
+// Moves for players
+
+let redpawn = ["r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","R5","R4","R3","R2","R1"];
+
+let greenpawn = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","G5","G4","G3","G2","G1"];
+
+let yellowpawn = ["y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","y13","b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","Y5","Y4","Y3","Y2","Y1"];
+
+let bluepawn = ["b1","b2","b3","b4","b5","b6","b7","b8","b9","b10","b11","b12","b13","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","y1","y2","y3","y4","y5","y6","y7","y8","y9","y10","y11","y12","B5","B4","B3","B2","B1"];
 
 //Display player's turn
 function changePlayer() {
@@ -348,14 +370,79 @@ function DontHaveOtherFree() {
 //Dice number logic
 
 dice.addEventListener("click", function (e) {
+  ///changes dice number
   if (!clicked) {
     num = Math.floor((Math.random() * 6) + 1);
     dice.style.backgroundImage = "url(images/" + num + ".jpg)";
     clicked = true;
   }
+
+  //If number not 6 change player
   if (num != 6 && DontHaveOtherFree()) {
       badtext.innerText = "Unfortunately you are stuck";
       window.setTimeout(changePlayer, 1000);
       clicked = false;
   }
+
+  if (num != 6 && !DontHaveOtherFree()) {
+    badtext.innerText = "Click your pawn";
+    clicked = false;
+    n = num;
+  }
+  
+  //if number is 6 move pawn from player block to board
+  if(num == 6 && !DontHaveOtherFree()){
+    if(text.innerText == 'green'){
+      var g1 = document.querySelector('#g1');
+      g1.appendChild(greenpawn1);
+      currpawn = greenpawn1
+      positions[currpawn] = g1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else if(text.innerText == 'yellow'){
+      var y1 = document.querySelector('#y1');
+      y1.appendChild(yellowpawn1);
+      currpawn = yellowpawn1
+      positions[currpawn] = y1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else if(text.innerText == 'blue'){
+      var b1 = document.querySelector('#b1');
+      b1.appendChild(bluwepawn1);
+      currpawn = bluepawn1
+      positions[currpawn] = b1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else{
+      var r1 = document.querySelector('#r1');
+      r1.appendChild(redpawn1);
+      currpawn = redpawn1
+      positions[currpawn] = r1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }
+  }
+
+});
+
+// Random num move for all pawns
+function randomMove(Color, paw, number) {
+  NumOfPaw = paw;
+  currcolor = Color;
+  num = number;
+  currpawn = currcolor + "pawn" + NumOfPaw;
+  currPos = positions[currpawn];
+  var pcolor = str.slice(0, 1);
+  var pnum = str.slice(1);
+  var newnum = pnum + num;
+  newPos = pcolor + newnum;
+  var destination = document.querySelector(newPos);
+  var source = document.querySelector(currPos);
+  destination.appendChild(source);
+  positions[currpawn] = destination;
+  dice.style.backgroundImage = "url(images/dice.gif)";
+  window.setTimeout(changePlayer, 1000);
+  clicked = false;
+}
+
+
+redpawn1.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,1,n);
 });
