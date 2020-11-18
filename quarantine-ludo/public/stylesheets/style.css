@@ -351,7 +351,6 @@ ul#chat-log li.join > span {
   justify-self: center;
 }
 
-
 *,
 *:before,
 *:after {
@@ -367,8 +366,8 @@ ul#chat-log li.join > span {
 }
 
 .container {
-    width: 450px;
-    height: 450px;
+    width: 400px;
+    height: 400px;
     margin: auto;
     margin-top: 3px;
     cursor: pointer;
@@ -518,45 +517,43 @@ ul#chat-log li.join > span {
 .triangle-right {
     width: 0;
     height: 0;
-    border-top: 45px solid transparent;
-    border-left: 45px solid #84c21f;
-    border-bottom: 45px solid transparent;
+    border-top: 40px solid transparent;
+    border-left: 40px solid #84c21f;
+    border-bottom: 40px solid transparent;
     position: absolute;
     left: 0;
-    top: 5.2px;
+  
 }
 
 .triangle-up {
     width: 0;
     height: 0;
-    border-left: 45px solid transparent;
-    border-right: 45px solid transparent;
-    border-bottom: 45px solid #dc2418;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 40px solid #dc2418;
     position: absolute;
     bottom: 0;
-    left: 5.2px;
+
 }
 
 .triangle-left {
     width: 0;
     height: 0;
-    border-right: 45px solid #0092dc;
-    border-bottom: 45px solid transparent;
-    border-top: 45px solid transparent;
+    border-right: 40px solid #0092dc;
+    border-bottom: 40px solid transparent;
+    border-top: 40px solid transparent;
     position: absolute;
     right: 0;
-    top: 5.2px;
 }
 
 .triangle-down {
     width: 0;
     height: 0;
-    border-left: 45px solid transparent;
-    border-right: 45px solid transparent;
-    border-top: 45px solid #f6c700;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 40px solid #f6c700;
     position: absolute;
     top: 0;
-    right: 5.2px;
 }
 
 .card {
@@ -570,9 +567,8 @@ ul#chat-log li.join > span {
 
 @media only screen and (max-width: 1200px) {
     .container {
-        width: 400px;
-        height: 400px;
-        margin-top: 8px;
+        width: 350px;
+        height: 350px;
     }
     .triangle-right {
         width: 0;
@@ -582,7 +578,6 @@ ul#chat-log li.join > span {
         border-bottom: 35px solid transparent;
         position: absolute;
         left: 0;
-        top: 4.2px;
     }
     .triangle-up {
         width: 0;
@@ -592,7 +587,6 @@ ul#chat-log li.join > span {
         border-bottom: 35px solid #dc2418;
         position: absolute;
         bottom: 0;
-        left: 4.2px;
     }
     .triangle-left {
         width: 0;
@@ -602,7 +596,6 @@ ul#chat-log li.join > span {
         border-top: 35px solid transparent;
         position: absolute;
         right: 0;
-        top: 4.2px;
     }
     .triangle-down {
         width: 0;
@@ -612,15 +605,13 @@ ul#chat-log li.join > span {
         border-top: 35px solid #f6c700;
         position: absolute;
         top: 0;
-        right: 4.2px;
     }
 }
 
 @media only screen and (max-width: 920px) {
     .container {
-        width: 350px;
-        height: 350px;
-        margin-top: 8px;
+        width: 300px;
+        height: 300px;
     }
     .triangle-right {
         width: 0;
@@ -630,7 +621,7 @@ ul#chat-log li.join > span {
         border-bottom: 30px solid transparent;
         position: absolute;
         left: 0;
-        top: 4.2px;
+    
     }
     .triangle-up {
         width: 0;
@@ -640,7 +631,7 @@ ul#chat-log li.join > span {
         border-bottom: 30px solid #dc2418;
         position: absolute;
         bottom: 0;
-        left: 4.2px;
+     
     }
     .triangle-left {
         width: 0;
@@ -650,7 +641,7 @@ ul#chat-log li.join > span {
         border-top: 30px solid transparent;
         position: absolute;
         right: 0;
-        top: 4.2px;
+   
     }
     .triangle-down {
         width: 0;
@@ -660,6 +651,5 @@ ul#chat-log li.join > span {
         border-top: 30px solid #f6c700;
         position: absolute;
         top: 0;
-        right: 4.2px;
     }
 }
