@@ -311,6 +311,15 @@ ul#chat-log li.join > span {
 
 /*Game Board*/
 
+.room-game-wrapper {
+  /*display: grid;
+  grid-template-columns: 40% 20% 40%;
+  grid-row-start: 1;
+  grid-column-start: 2; */
+  /*background-color: blue; */
+  align-self: start;
+}
+
 *,
 *:before,
 *:after {
@@ -326,12 +335,12 @@ ul#chat-log li.join > span {
 }
 
 .container {
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 8px;
     cursor: pointer;
-    /* border: 1px solid black; */
+    border: 1px solid black; 
 }
 
 .container-row1,
@@ -527,7 +536,7 @@ ul#chat-log li.join > span {
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1200px) {
     .container {
         width: 400px;
         height: 400px;
@@ -575,7 +584,7 @@ ul#chat-log li.join > span {
     }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 920px) {
     .container {
         width: 350px;
         height: 350px;
