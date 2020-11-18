@@ -316,6 +316,24 @@ ul#chat-log li.join > span {
   margin-top: 50px;
 }
 
+/*Pawns*/
+
+.pawns {
+  height: 25px;
+  width: 25px;
+  /*background-color: #bbb;*/
+  border-radius: 50%;
+  display: inline-block;
+  border: 3px solid white;
+}
+
+
+
+
+
+
+
+
 /*Game Board*/
 
 .room-game-wrapper {
