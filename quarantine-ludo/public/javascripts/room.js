@@ -280,5 +280,41 @@ pc.onicecandidate = function ({ candidate }) {
 
 
 
-//Game logic
+//Ludo Game logic
+
+//Dice roll
+
+var num = 0;
+var clicked = false;
+
+function changePlayer() {
+  if (num != 6){
+  var text = document.getElementById('player');
+  switch (text.innerText) {
+      case "red": text.innerText = text.style.color = "blue"; break;
+      case "blue": text.innerText = text.style.color = "yellow"; break;
+      case "yellow": text.innerText = text.style.color = "green"; break;
+      case "green": text.innerText = text.style.color = "red"; break;
+  }
+  }
+  var badtext = document.getElementById('badtext');
+  badtext.innerText = "";
+  var dice = document.getElementById('dice-roll');
+  dice.style.backgroundImage = "url(images/dice.gif)";
+}
+
+function randomNum() {
+  if (!clicked) {
+      num = Math.floor((Math.random() * 6) + 1);;
+      var dice = document.getElementById('dice-roll');
+      dice.style.backgroundImage = "url(images/" + num + ".jpg)";
+      clicked = true;
+  }
+  if (num != 6&&DontHaveOtherFree()) {
+      var bad = document.getElementById('badtext');
+      bad.innerText = "Unfortunatlly you stuck";
+      window.setTimeout(changePlayer, 1000);
+      clicked = false;
+  }
+}
 
