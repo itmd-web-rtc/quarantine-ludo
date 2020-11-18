@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+
   <head>
     <title><%= title %></title>
     <link rel="icon" href="/images/logo.png" />
@@ -21,64 +21,261 @@
         <div class="room-game-grid">
           <div class="room-chat">
             <aside class="chat">
-              <ul id="chat-log">
-              </ul>
-              <ul id="chat-join">
-              </ul>
-              <form id="chat-form" action="#null"><input id="message" disabled="true" name="message" type="text" autocomplete="off" />
-                <button id="send-button" disabled="true" name="send-button" type="submit">Send</button>
+              <ul id="chat-log"></ul>
+              <form id="chat-form" action="#null">
+                <input
+                  id="message"
+                  disabled="true"
+                  name="message"
+                  type="text"
+                  autocomplete="off"
+                />
+                <button
+                  id="send-button"
+                  disabled="true"
+                  name="send-button"
+                  type="submit"
+                >
+                  Send
+                </button>
               </form>
-          </aside>
+            </aside>
+          </div>
+        
+
+          <div class="room-game-wrapper">
+            <div class="container card">
+                   <!-- First row -->
+                  <div class="container-row1 clearfix">
+                      <div class="row1-col1 green">
+                          <div class="row1-col1-child clearfix white">
+                              <div class="green" id="greenblock">
+                                <div class="pawns" id="greenpawn1"    onclick="randomMove('green',1)"       style="background-color:#84c21f"></div>
+                              </div>
+                              <div class="green" id="greenblock">
+                                <div class="pawns" id="greenpawn2"    onclick="randomMove('green',2)"       style="background-color:#84c21f"></div>
+                              </div>
+                              <div class="green" id="greenblock">
+                                <div class="pawns" id="greenpawn3"    onclick="randomMove('green',3)"       style="background-color:#84c21f"></div>
+                              </div>
+                              <div class="green" id="greenblock">
+                                <div class="pawns" id="greenpawn4"    onclick="randomMove('green',4)"       style="background-color:#84c21f"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row1-col2 clearfix">
+                          <div id="g11"></div>
+                          <div id="g12"></div>
+                          <div id="g13"></div>
+                          <div id="g10"></div>
+                          <div class="yellow" id="Y5"></div>
+                          <div class="yellow" id="y1"></div>
+                          <div id="g9"></div>
+                          <div class="yellow" id="Y4"></div>
+                          <div id="y2"></div>
+                          <div id="g8"></div>
+                          <div class="yellow" id="Y3"></div>
+                          <div id="y3"></div>
+                          <div id="g7"></div>
+                          <div class="yellow" id="Y2"></div>
+                          <div id="y4"></div>
+                          <div id="g6"></div>
+                          <div class="yellow" id="Y1"></div>
+                          <div id="y5"></div>
+                      </div>
+                      <div class="row1-col3 yellow">
+                          <div class="row1-col3-child clearfix white">
+                              <div class="yellow" id="yellowblock">
+                                <div class="pawns" id="yellowpawn1" onclick="randomMove('yellow',1)"    style="background-color:#f6c700"></div>
+                              </div>
+                              <div class="yellow" id="yellowblock">
+                                <div class="pawns" id="yellowpawn2" onclick="randomMove('yellow',2)"    style="background-color:#f6c700"></div>
+                              </div>
+                              <div class="yellow" id="yellowblock">
+                                <div class="pawns" id="yellowpawn3" onclick="randomMove('yellow',3)"    style="background-color:#f6c700"></div>
+                              </div>
+                              <div class="yellow" id="yellowblock">
+                                <div class="pawns" id="yellowpawn4" onclick="randomMove('yellow',4)"    style="background-color:#f6c700"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          
+                  <!-- Second row -->
+                  <div class="container-row2 clearfix">
+                      <div class="row2-col1 clearfix">
+                          <div id="r13"></div>
+                          <div class="green" id="g1"></div>
+                          <div id="g2"></div>
+                          <div id="g3"></div>
+                          <div id="g4"></div>
+                          <div id="g5"></div>
+                          <div id="r12"></div>
+                          <div class="green" id="G5"></div>
+                          <div class="green" id="G4"></div>
+                          <div class="green" id="G3"></div>
+                          <div class="green" id="G2"></div>
+                          <div class="green" id="G1"></div>
+                          <div id="r11"></div>
+                          <div id="r10"></div>
+                          <div id="r9"></div>
+                          <div id="r8"></div>
+                          <div id="r7"></div>
+                          <div id="r6"></div>
+                      </div>
+                      <div class="row2-col2">
+                          <!-- add triangular effect using html and css -->
+                          <div class="contain-triangles">
+                              <div class="triangle-right"></div>
+                              <div class="triangle-up"></div>
+                              <div class="triangle-left"></div>
+                              <div class="triangle-down"></div>
+                          </div>
+                      </div>
+                      <div class="row2-col3 clearfix">
+                          <div id="y6"></div>
+                          <div id="y7"></div>
+                          <div id="y8"></div>
+                          <div id="y9"></div>
+                          <div id="y10"></div>
+                          <div id="y11"></div>
+                          <div class="blue" id="B1"></div>
+                          <div class="blue" id="B2"></div>
+                          <div class="blue" id="B3"></div>
+                          <div class="blue" id="B4"></div>
+                          <div class="blue" id="B5"></div>
+                          <div id="y12"></div>
+                          <div id="b5"></div>
+                          <div id="b4"></div>
+                          <div id="b3"></div>
+                          <div id="b2"></div>
+                          <div class="blue" id="b1"></div>
+                          <div id="y13"></div>
+                      </div>
+                  </div>
+          
+                  <!-- Third row -->
+                  <div class="container-row3 clearfix">
+                      <div class="row3-col1 red">
+                          <div class="row3-col1-child clearfix white">
+                              <div class="red" id="redblock">
+                                <div class="pawns" id="redpawn1"    onclick="randomMove('red',1)"       style="background-color:#dc2418"></div>
+                              </div>
+                              <div class="red" id="redblock">
+                                <div class="pawns" id="redpawn2"    onclick="randomMove('red',2)"       style="background-color:#dc2418"></div>
+                              </div>
+                              <div class="red" id="redblock">
+                                <div class="pawns" id="redpawn3"    onclick="randomMove('red',3)"       style="background-color:#dc2418"></div>
+                              </div>
+                              <div class="red" id="redblock">
+                                <div class="pawns" id="redpawn4"    onclick="randomMove('red',4)"       style="background-color:#dc2418"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row3-col2 clearfix">
+                          <div id="r5"></div>
+                          <div class="red" id="R1"></div>
+                          <div id="b6"></div>
+                          <div id="r4"></div>
+                          <div class="red" id="R2"></div>
+                          <div id="b7"></div>
+                          <div id="r3"></div>
+                          <div class="red" id="R3"></div>
+                          <div id="b8"></div>
+                          <div id="r2"></div>
+                          <div class="red" id="R4"></div>
+                          <div id="b9"></div>
+                          <div class="red" id="r1"></div>
+                          <div class="red" id="R5"></div>
+                          <div id="b10"></div>
+                          <div id="b13"></div>
+                          <div id="b12"></div>
+                          <div id="b11"></div>
+                      </div>
+                      <div class="row3-col3 blue">
+                          <div class="row3-col3-child clearfix white">
+                              <div class="blue" id="blueblock">
+                                <div class="pawns" id="bluepawn1"   onclick="randomMove('blue',1)"      style="background-color:#0092dc"></div>
+                              </div>
+                              <div class="blue" id="blueblock">
+                                <div class="pawns" id="bluepawn2"   onclick="randomMove('blue',2)"      style="background-color:#0092dc"></div>
+                              </div>
+                              <div class="blue" id="blueblock">
+                                <div class="pawns" id="bluepawn3"   onclick="randomMove('blue',3)"      style="background-color:#0092dc"></div>
+                              </div>
+                              <div class="blue" id="blueblock">
+                                <div class="pawns" id="bluepawn4"   onclick="randomMove('blue',4)"      style="background-color:#0092dc"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          </div>
         </div>
-          <div class="room-game">
-  
-          </div>
           <div class="room-link">
-            <button id="join-button">Join Call</button>
+            <form id="join-form">
+              <input
+                id="join-name"
+                placeholder="Enter Name"
+                name="join-name"
+                type="text"
+                autocomplete="off"
+              />
+              <button id="join-button">Join Call</button>
+            </form>
+
+            <div class="dice" id="dice-roll"  style="background-image:url(images/dice.gif);background-size:contain; width:150px;height:150px">
+            </div>
+
+            <div class="text">
+              <p><h4 id="uselesstext1">It`s</h4><h4 id="player" style="float:left; color:red">red</h4><h4 id="uselesstext2">'s turn</h4></p>
+              <br>
+              <p id="badtext" style="float:left;"></p>
+            </div>
+
           </div>
-  
+
           <div class="room-video-grid">
             <div class="room-video">
-              <div class="player-name">Player 1</div>
-                <video
-                  class="room-video-stream"
-                  id="self-video"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
-              </div>
+              <div class="player-name" id="p1">Player 1</div>
+              <video
+                class="room-video-stream"
+                id="self-video"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
+            </div>
             <div class="room-video">
-              <div class="player-name">Player 2</div>
-                <video
+              <div class="player-name" id="p2">Player 2</div>
+              <video
                 id="peer-video"
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
             <div class="room-video">
               <div class="player-name">Player 3</div>
-                <video
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+              <video
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
             <div class="room-video">
               <div class="player-name">Player 4</div>
-                <video
-                  class="room-video-stream"
-                  width="100%"
-                  height="100%"
-                  autoplay
-                  playsinline>
-                </video>
+              <video
+                class="room-video-stream"
+                width="100%"
+                height="100%"
+                autoplay
+                playsinline
+              ></video>
             </div>
           </div>
         </div>
@@ -87,7 +284,7 @@
     <script>
       window.NAMESPACE = `<%- namespace %>`;
     </script>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="javascripts/room.js"></script>

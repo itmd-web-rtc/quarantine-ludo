@@ -62,7 +62,6 @@ nav {
   cursor: pointer;
 }
 
-
 video {
   object-fit: cover;
   border-radius: 10px;
@@ -82,13 +81,12 @@ video {
   width: 80%;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('/images/logo.png');
+  background-image: url("/images/logo.png");
 }
 
 .createButton {
   justify-self: left;
 }
-
 
 .room-body {
   margin: 0;
@@ -108,30 +106,24 @@ video {
   grid-template-rows: 70% 30%;
 }
 
-.room-game-grid{
+.room-game-grid {
   grid-template-columns: 25% 60% 15%;
   display: grid;
-  grid-template-rows: 100%
+  grid-template-rows: 100%;
 }
 
-.room-chat{
+.room-chat {
   grid-row-start: 1;
   grid-column-start: 1;
   height: 100%;
 }
 
-.room-game{
-  grid-row-start: 1;
-  grid-column-start: 2;
-  background-color: blue;
-}
 
-.room-link{
+.room-link {
   grid-row-start: 1;
   grid-column-start: 3;
-  background-color: red;
 }
-.room-video-grid{
+.room-video-grid {
   grid-row-start: 2;
   display: grid;
   grid-row: 100%;
@@ -140,7 +132,6 @@ video {
   grid-template-columns: 25% 25% 25% 25%;
   justify-items: center;
 }
-
 
 .room-video {
   border-radius: 25px;
@@ -165,7 +156,6 @@ video {
   position: absolute;
   margin: 1%;
 }
-
 
 .chat-send-button {
   background-color: #119b48;
@@ -197,13 +187,10 @@ video {
   margin-right: 5px;
 }
 
-
-
 .peer {
   border-color: #ccc;
   background-color: #ddd;
 }
-
 
 /*
 Today - Dhiraj Jain
@@ -219,8 +206,7 @@ Today - Dhiraj Jain
   margin-right: 1%;
 }
 #chat-form > input:focus {
-  border-color: #3857A7;
-  
+  border-color: #3857a7;
 }
 #chat-form > button {
   width: 60px;
@@ -230,7 +216,7 @@ Today - Dhiraj Jain
   color: white;
   text-decoration: none;
   font-size: 1em;
-  height:35px;
+  height: 35px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -244,11 +230,11 @@ aside.chat {
   padding: 10px;
   margin: 20px;
   max-width: 100%;
-  height: 80%;
+  height: 90%;
 }
 ul#chat-log {
   overflow: scroll;
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-flow: column nowrap;
   padding: 6px;
@@ -256,7 +242,7 @@ ul#chat-log {
 ul#chat-log li {
   margin-bottom: 6px;
   padding: 6px;
-  background-color: #CCC;
+  background-color: #ccc;
   border-radius: 6px;
   max-width: 60%;
   font-size: 1em;
@@ -266,8 +252,17 @@ ul#chat-log li.peer {
 }
 ul#chat-log li.self {
   margin-left: auto;
-  background-color: #3857A7;
-  color: #FFF;
+  background-color: #3857a7;
+  color: #fff;
+}
+
+ul#chat-log li.join {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: none;
+  background: none;
+  color: grey;
+  font-size: 0.7em;
 }
 
 #join-button {
@@ -278,5 +273,383 @@ ul#chat-log li.self {
   text-decoration: none;
   font-size: 14px;
   border-radius: 4px;
-  cursor: pointer; 
+  cursor: pointer;
+}
+
+#join-form {
+  align-items: center;
+}
+
+#join-form > input {
+  outline: none;
+  width: 70%;
+  display: flex;
+  height: 25px;
+  margin: auto;
+  margin-top: 20%;
+  justify-self: center;
+}
+
+#join-button {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+}
+
+#join-form > input:focus {
+  border-color: #3857a7;
+}
+
+ul#chat-log li.join > span {
+  font-size: 0.7em;
+}
+.chat-time {
+  float: right;
+  font-size: 0.5em;
+  margin-top: 0.5em;
+}
+
+/*Dice*/
+
+.dice, 
+.text {
+  align-items: center;
+  margin-top: 50px;
+}
+
+#uselesstext1,
+#badtext {
+  float:left;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+
+/*Pawns*/
+
+.pawns {
+  height: 25px;
+  width: 25px;
+  /*background-color: #bbb;*/
+  border-radius: 50%;
+  display: inline-block;
+  border: 3px solid white;
+}
+
+
+
+
+
+
+
+
+/*Game Board*/
+
+.room-game-wrapper {
+  grid-row-start: 1;
+  grid-column-start: 2; 
+  justify-self: center;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.container {
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    margin-top: 3px;
+    cursor: pointer;
+    border: 1px solid black; 
+}
+
+.container-row1,
+.container-row3 {
+    width: 100%;
+    height: 40%;
+}
+
+.container-row2 {
+    width: 100%;
+    height: 20%;
+}
+
+.row1-col1,
+.row1-col3,
+.row3-col1,
+.row3-col3 {
+    height: 100%;
+    width: 40%;
+}
+
+.row1-col2,
+.row3-col2 {
+    height: 100%;
+    width: 20%;
+}
+
+.row1-col2>div:hover,
+.row3-col2>div:hover {
+    box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25), -2px 10px 10px rgba(0, 0, 0, 0.22);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.row1-col1,
+.row1-col2,
+.row1-col3,
+.row2-col1,
+.row2-col2,
+.row2-col3,
+.row3-col1,
+.row3-col2,
+.row3-col3 {
+    float: left;
+}
+
+.row2-col1,
+.row2-col3 {
+    width: 40%;
+    height: 100%;
+}
+
+.row2-col1>div:hover,
+.row2-col3>div:hover {
+    box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25), -2px 10px 10px rgba(0, 0, 0, 0.22);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.row2-col2 {
+    width: 20%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.row1-col1,
+.row1-col3,
+.row3-col1,
+.row3-col3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row1-col1-child,
+.row1-col3-child,
+.row3-col1-child,
+.row3-col3-child {
+    width: 70%;
+    height: 70%;
+}
+
+.row1-col1-child>div,
+.row1-col3-child>div,
+.row3-col1-child>div,
+.row3-col3-child>div {
+    width: 35%;
+    height: 35%;
+    float: left;
+    margin: 7.5%;
+    /* box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25), -2px 10px 10px rgba(0, 0, 0, 0.22); */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.row1-col1-child>div:hover,
+.row1-col3-child>div:hover,
+.row3-col1-child>div:hover,
+.row3-col3-child>div:hover {
+    box-shadow: -2px 14px 28px rgba(0, 0, 0, 0.25), -2px 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.row1-col2>div,
+.row3-col2>div {
+    width: 33.333%;
+    height: 16.667%;
+    float: left;
+    border: 1px solid black;
+}
+
+.row2-col1>div,
+.row2-col3>div {
+    width: 16.667%;
+    height: 33.333%;
+    float: left;
+    border: 1px solid black;
+}
+
+.green {
+    background-color: #84c21f;
+}
+
+.red {
+    background-color: #dc2418;
+}
+
+.blue {
+    background-color: #0092dc;
+}
+
+.yellow {
+    background-color: #f6c700;
+}
+
+.white {
+    background-color: #fff;
+}
+
+.contain-triangles {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 40px solid transparent;
+    border-left: 40px solid #84c21f;
+    border-bottom: 40px solid transparent;
+    position: absolute;
+    left: 0;
+  
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 40px solid #dc2418;
+    position: absolute;
+    bottom: 0;
+
+}
+
+.triangle-left {
+    width: 0;
+    height: 0;
+    border-right: 40px solid #0092dc;
+    border-bottom: 40px solid transparent;
+    border-top: 40px solid transparent;
+    position: absolute;
+    right: 0;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 40px solid #f6c700;
+    position: absolute;
+    top: 0;
+}
+
+.card {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.card:hover {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        width: 350px;
+        height: 350px;
+    }
+    .triangle-right {
+        width: 0;
+        height: 0;
+        border-top: 35px solid transparent;
+        border-left: 35px solid #84c21f;
+        border-bottom: 35px solid transparent;
+        position: absolute;
+        left: 0;
+    }
+    .triangle-up {
+        width: 0;
+        height: 0;
+        border-left: 35px solid transparent;
+        border-right: 35px solid transparent;
+        border-bottom: 35px solid #dc2418;
+        position: absolute;
+        bottom: 0;
+    }
+    .triangle-left {
+        width: 0;
+        height: 0;
+        border-right: 35px solid #0092dc;
+        border-bottom: 35px solid transparent;
+        border-top: 35px solid transparent;
+        position: absolute;
+        right: 0;
+    }
+    .triangle-down {
+        width: 0;
+        height: 0;
+        border-left: 35px solid transparent;
+        border-right: 35px solid transparent;
+        border-top: 35px solid #f6c700;
+        position: absolute;
+        top: 0;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .container {
+        width: 300px;
+        height: 300px;
+    }
+    .triangle-right {
+        width: 0;
+        height: 0;
+        border-top: 30px solid transparent;
+        border-left: 30px solid #84c21f;
+        border-bottom: 30px solid transparent;
+        position: absolute;
+        left: 0;
+    
+    }
+    .triangle-up {
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 30px solid #dc2418;
+        position: absolute;
+        bottom: 0;
+     
+    }
+    .triangle-left {
+        width: 0;
+        height: 0;
+        border-right: 30px solid #0092dc;
+        border-bottom: 30px solid transparent;
+        border-top: 30px solid transparent;
+        position: absolute;
+        right: 0;
+   
+    }
+    .triangle-down {
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-top: 30px solid #f6c700;
+        position: absolute;
+        top: 0;
+    }
 }
