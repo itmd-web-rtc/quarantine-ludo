@@ -230,11 +230,11 @@ aside.chat {
   padding: 10px;
   margin: 20px;
   max-width: 100%;
-  height: 80%;
+  height: 90%;
 }
 ul#chat-log {
   overflow: scroll;
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-flow: column nowrap;
   padding: 6px;
