@@ -311,10 +311,18 @@ ul#chat-log li.join > span {
 
 /*Dice*/
 
-.dice-roll {
+.dice-roll, 
+.text {
   align-items: center;
   margin-top: 50px;
 }
+
+#uselesstext1{
+  float:left;
+  padding-left:10px;
+  padding-right:10px;
+}
+
 
 /*Pawns*/
 

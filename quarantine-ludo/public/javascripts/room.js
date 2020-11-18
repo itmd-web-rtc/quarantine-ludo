@@ -280,13 +280,14 @@ pc.onicecandidate = function ({ candidate }) {
 
 
 
-//Ludo Game logic
+//---------Ludo Game logic-----------
 
-//Dice roll
+//---Dice roll---
 
 var num = 0;
 var clicked = false;
 
+//Display player's turn
 function changePlayer() {
   if (num != 6){
   var text = document.getElementById('player');
@@ -303,6 +304,16 @@ function changePlayer() {
   dice.style.backgroundImage = "url(images/dice.gif)";
 }
 
+//Check free pawns
+function DontHaveOtherFree() {
+  var text = document.getElementById('player');
+  for (var i = 1; i <=4; i++) {
+      if (onboard[text.innerText + "pawn" + i] == 1 || positions[text.innerText + "pawn" + i]+num>=44) return false;
+  }
+  return true;
+}
+
+//Dice number logic
 function randomNum() {
   if (!clicked) {
       num = Math.floor((Math.random() * 6) + 1);;
@@ -310,9 +321,9 @@ function randomNum() {
       dice.style.backgroundImage = "url(images/" + num + ".jpg)";
       clicked = true;
   }
-  if (num != 6&&DontHaveOtherFree()) {
+  if (num != 6 && DontHaveOtherFree()) {
       var bad = document.getElementById('badtext');
-      bad.innerText = "Unfortunatlly you stuck";
+      bad.innerText = "Unfortunately you are stuck";
       window.setTimeout(changePlayer, 1000);
       clicked = false;
   }
