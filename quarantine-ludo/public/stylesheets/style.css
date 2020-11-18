@@ -328,8 +328,8 @@ ul#chat-log li.join > span {
 /*Pawns*/
 
 .pawns {
-  height: 25px;
-  width: 25px;
+  height: 60%;
+  width: 60%;
   /*background-color: #bbb;*/
   border-radius: 50%;
   display: inline-block;
@@ -490,18 +490,34 @@ ul#chat-log li.join > span {
 
 .green {
     background-color: #84c21f;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .red {
     background-color: #dc2418;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .blue {
     background-color: #0092dc;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .yellow {
     background-color: #f6c700;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .white {
