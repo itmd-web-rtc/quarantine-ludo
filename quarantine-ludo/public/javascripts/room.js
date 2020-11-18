@@ -300,7 +300,7 @@ function changePlayer() {
   }
   var badtext = document.getElementById('badtext');
   badtext.innerText = "";
-  var dice = document.getElementById('dice-roll');
+  var dice = document.getElementById('dice');
   dice.style.backgroundImage = "url(images/dice.gif)";
 }
 
@@ -323,8 +323,8 @@ function DontHaveOtherFree() {
 //Dice number logic
 function randomNum() {
   if (!clicked) {
-      num = Math.floor((Math.random() * 6) + 1);;
-      var dice = document.getElementById('dice-roll');
+      num = Math.floor((Math.random() * 6) + 1);
+      var dice = document.getElementById('dice');
       dice.style.backgroundImage = "url(images/" + num + ".jpg)";
       clicked = true;
   }
