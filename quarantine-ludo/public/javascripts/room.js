@@ -260,6 +260,10 @@ pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
 };
 
+let circularPawns = {"green": [], "red": [], "yellow": [], "blue": []}
+
+let colors = {"green": "rgb(0, 128, 0)", "blue": "(0,0,255)", "red": "rgb(255, 0, 0)", "yellow": "rgb(255,255,0)"}
+
 function createHomeSquares(ctx, x, y, color) {
   ctx.beginPath();
   ctx.strokeStyle = "grey";
@@ -273,6 +277,12 @@ function createHomeSquares(ctx, x, y, color) {
   ctx.arc(x + 25, y + 25, 15, 0, 2 * Math.PI, false); // full circle
   ctx.fill();
   ctx.stroke();
+  circularPawns[color].push({
+      "x": x + 25, 
+      "y": y + 25,
+      "radius": 15,
+      "color": colors[color]      
+  })
 }
 
 function drawGrid(ctx, width, height, noOfRows, noOfCols){
@@ -292,27 +302,77 @@ function drawGrid(ctx, width, height, noOfRows, noOfCols){
   }
 }
 
+function isIntersect(point, circle) {
+  //console.log((point.x-circle.x) ** 2 + (point.y - circle.y) ** 2, circle.radius ** 2 );
+  return Math.sqrt(Math.pow(point.x-circle.x,2)+Math.pow(point.y-circle.y,2)) < Math.pow(circle.radius,2)
+  //return Math.sqrt((point.x-circle.x) ** 2 + (point.y - circle.y) ** 2) < circle.radius ** 2;
+}
+
+let homeBlockGreen = document.querySelector("#home-block-green");
+let ctxHomeBlockGreen = homeBlockGreen.getContext("2d");
+
+// homeBlockGreen.addEventListener('click', (e) => {
+//   const mousePoint = {
+//     x: e.clientX,
+//     y: e.clientY
+//   };
+//   let times = 0
+//   console.log("mousePoint", mousePoint);
+//   circularPawns["green"].forEach(circle => {
+//     console.log("circlePoint", circle)
+//     console.log("calc", Math.sqrt((mousePoint.x-circle.x) ** 2 + (mousePoint.y - circle.y) ** 2), circle.radius ** 2 );
+//     if (isIntersect(mousePoint, circle)) {
+//       console.log(++times)
+//       console.log("CLICKED")
+//     }
+//   });
+// });
+
+function hasSameColor(color, circle) {
+  return circle.color === color;
+}
+
+homeBlockGreen.addEventListener('click', (e) => {
+  const mousePos = {
+    x: e.clientX - homeBlockGreen.offsetLeft,
+    y: e.clientY - homeBlockGreen.offsetTop
+  };
+  // get pixel under cursor
+  const pixel = ctxHomeBlockGreen.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+
+  // create rgb color for that pixel
+  const color = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+  console.log("color", color);
+
+  // find a circle with the same colour
+  circularPawns["green"].forEach(circle => {
+    if (hasSameColor(color, circle)) {
+      alert('click on circle: ' + circle.id);
+    }
+  });
+ });
+
 function setWidthAndHeightOfLeftLayer() {
-  let homeBlockGreen = document.querySelector("#home-block-green");
+  
   let homeBlockRed = document.querySelector("#home-block-red");
   let playBlockGreen = document.querySelector("#play-block-green");
 
   let leftLayer = document.querySelector("#left-layer");
   homeBlockGreen.width = leftLayer.offsetWidth;
   homeBlockGreen.height = (40 * leftLayer.offsetHeight) / 100;
-  ctx1 = homeBlockGreen.getContext("2d");
+  
 
   // outlined square X: 50, Y: 35, width/height 50
-  createHomeSquares(ctx1, 50, 35, "green");
+  createHomeSquares(ctxHomeBlockGreen, 50, 35, "green");
 
   // outlined square X: 175, Y: 35, width/height 50
-  createHomeSquares(ctx1, 175, 35, "green");
+  createHomeSquares(ctxHomeBlockGreen, 175, 35, "green");
 
   // outlined square X: 50, Y: 125, width/height 50
-  createHomeSquares(ctx1, 50, 125, "green");
+  createHomeSquares(ctxHomeBlockGreen, 50, 125, "green");
 
   // outlined square X: 175, Y: 125, width/height 50
-  createHomeSquares(ctx1, 175, 125, "green");
+  createHomeSquares(ctxHomeBlockGreen, 175, 125, "green");
 
   playBlockGreen.width = leftLayer.offsetWidth;
   playBlockGreen.height = (20 * leftLayer.offsetHeight) / 100;
