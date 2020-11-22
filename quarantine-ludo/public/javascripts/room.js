@@ -110,10 +110,11 @@ pc.ondatachannel = function (e) {
 };
 
 //video Streams
-var media_constraints = { video: true, audio: false };
+var media_constraints = { video: true, audio: true };
 
 var selfVideo = document.querySelector("#self-video");
 var selfStream = new MediaStream();
+selfVideo.volume = 0;
 selfVideo.srcObject = selfStream;
 
 var peerVideo = document.querySelector("#peer-video");
