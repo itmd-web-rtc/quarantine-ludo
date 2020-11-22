@@ -259,4 +259,3 @@ sc.on("signal", async function ({ candidate, description }) {
 pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
 };
-
