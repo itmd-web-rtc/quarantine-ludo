@@ -285,20 +285,25 @@ pc.onicecandidate = function ({ candidate }) {
 
 //---Dice roll---
 var dice = document.querySelector("#dice-roll");
+
 var badtext = document.querySelector('#badtext');
 var text = document.querySelector('#player');
+
 var redpawn1 = document.querySelector('#redpawn1');
 var redpawn2 = document.querySelector('#redpawn2');
 var redpawn3 = document.querySelector('#redpawn3');
 var redpawn4 = document.querySelector('#redpawn4');
+
 var greenpawn1 = document.querySelector('#greenpawn1');
 var greenpawn2 = document.querySelector('#greenpawn2');
 var greenpawn3 = document.querySelector('#greenpawn3');
 var greenpawn4 = document.querySelector('#greenpawn4');
+
 var bluepawn1 = document.querySelector('#bluepawn1');
 var bluepawn2 = document.querySelector('#bluepawn2');
 var bluepawn3 = document.querySelector('#bluepawn3');
 var bluepawn4 = document.querySelector('#bluepawn4');
+
 var yellowpawn1 = document.querySelector('#yellowpawn1');
 var yellowpawn2 = document.querySelector('#yellowpawn2');
 var yellowpawn3 = document.querySelector('#yellowpawn3');
@@ -372,27 +377,27 @@ function DontHaveOtherFree() {
 
 dice.addEventListener("click", function (e) {
   ///changes dice number
+
   if (!clicked) {
     num = Math.floor((Math.random() * 6) + 1);
     dice.style.backgroundImage = "url(images/" + num + ".jpg)";
     clicked = true;
-  }
-
-  //If number not 6 change player
-  if (num != 6 && DontHaveOtherFree()) {
+    
+    if (num != 6 && DontHaveOtherFree()) {
       badtext.innerText = "Unfortunately you are stuck";
       window.setTimeout(changePlayer, 1000);
       clicked = false;
-  }
+    }
 
-  if (num != 6 && !DontHaveOtherFree()) {
-    badtext.innerText = "Click your pawn";
-    clicked = false;
-    n = num;
-  }
-  
-  //if number is 6 move pawn from player block to board
-  if(num == 6 && !DontHaveOtherFree()){
+    if (num != 6 && !DontHaveOtherFree()) {
+      badtext.innerText = "Click your pawn";
+      clicked = false;
+      n = num;
+    }
+
+
+    //if number is 6 move pawn from player block to board
+  if(num == 6 && DontHaveOtherFree()){
     if(text.innerText == 'green'){
       var g1 = document.querySelector('#g1');
       g1.appendChild(greenpawn1);
@@ -407,7 +412,7 @@ dice.addEventListener("click", function (e) {
       dice.style.backgroundImage = "url(images/dice.gif)";
     }else if(text.innerText == 'blue'){
       var b1 = document.querySelector('#b1');
-      b1.appendChild(bluwepawn1);
+      b1.appendChild(bluepawn1);
       currpawn = bluepawn1
       positions[currpawn] = b1;
       dice.style.backgroundImage = "url(images/dice.gif)";
@@ -420,6 +425,10 @@ dice.addEventListener("click", function (e) {
     }
   }
 
+  }
+
+  //If number not 6 change player
+
 });
 
 // Random num move for all pawns
@@ -429,12 +438,14 @@ function randomMove(Color, paw, number) {
   num = number;
   currpawn = currcolor + "pawn" + NumOfPaw;
   currPos = positions[currpawn];
-  var pcolor = str.slice(0, 1);
-  var pnum = str.slice(1);
+  var pcolor = Color.slice(0, 1);
+  var pnum = paw
   var newnum = pnum + num;
   newPos = pcolor + newnum;
-  var destination = document.querySelector(newPos);
-  var source = document.querySelector(currPos);
+  console.log(newPos)
+  var destination = document.querySelector('#'+newPos);
+  console.log(currpawn)
+  var source = document.querySelector('#'+currpawn);
   destination.appendChild(source);
   positions[currpawn] = destination;
   dice.style.backgroundImage = "url(images/dice.gif)";
