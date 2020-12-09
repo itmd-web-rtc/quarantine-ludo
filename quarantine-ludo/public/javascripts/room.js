@@ -1,51 +1,24 @@
 console.log(NAMESPACE);
 var sc = io.connect("/" + NAMESPACE);
 var peers;
-var selfId;
+var self_id;
 
+var pcs = {}
 
-function removePeer(peers, id) {
-  let index = peers.indexOf(id);
-  if(index === -1){
-    return
-  }
-  peers.splice(index, 1)
-  return peers;
-}
+// var clientIs = {
+//   makingOffer: false,
+//   ignoringOffer: false,
+//   polite: false,
+//   settingRemoteAnswerPending: false,
+// };
 
-sc.on("message", function (data) {
-  console.log(`${data}`);
-  selfId = sc.id;
-});
-
-sc.on('connected peers', function(data){
-  peers=removePeer(data, sc.id)
-  console.log("The connected peers are:\n", peers)
-  sc.emit('new connected peer', sc.id)
-})
-
-sc.on('new connected peer', function(peer){
-  console.log('The new connected peer is: ', peer)
-  peers.push(peer)
-  console.log('The new connected peers are:\n', peers)
-  sc.emit('signal', {to: peer, from: selfId, description: "Wanting to connect"})
-})
-
-sc.on('new disconnected peer', function(peer) {
-  console.log(`The ${peer} has disconnected`)
-  peers = removePeer(peers, peer)
-  console.log('The remainning connected peers are:\n', peers)
-})
-
-
-var clientIs = {
-  makingOffer: false,
-  ignoringOffer: false,
-  polite: false,
-  settingRemoteAnswerPending: false,
+var rtc_config = { 
+  iceServers: [
+    {
+      urls: ['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']
+    }
+  ]
 };
-
-var rtc_config = null;
 var pc = new RTCPeerConnection(rtc_config)
 
 //Setting basic to get peer connection
@@ -62,6 +35,46 @@ var chatButton = document.querySelector("#send-button");
 var joinForm = document.querySelector("#join-form");
 var joinName = document.querySelector("#join-name");
 
+function removePeer(peers, id) {
+  let index = peers.indexOf(id);
+  if(index === -1){
+    return
+  }
+  peers.splice(index, 1)
+  return peers;
+}
+
+sc.on("message", function (data) {
+  console.log(`${data}`);
+  self_id = sc.id;
+
+});
+
+sc.on('connected peers', function(data){
+  peers=removePeer(data, sc.id)
+  console.log("The connected peers are:\n", peers)
+  sc.emit('new connected peer', sc.id)
+  for(let peer of peers){
+    establishPeer(peer, false);
+    nogotiateConnection(peer);
+  }
+})
+
+sc.on('new connected peer', function(peer){
+  console.log('The new connected peer is: ', peer)
+  peers.push(peer)
+  console.log('The new connected peers are:\n', peers)
+  sc.emit('signal', {to: peer, from: self_id, description: "Wanting to connect"})
+  establishPeer(peer, true);
+  negotiateConnection(peer);
+})
+
+sc.on('new disconnected peer', function(peer) {
+  console.log(`The ${peer} has disconnected`)
+  peers = removePeer(peers, peer)
+  removeVideo(peer)
+  console.log('The remainning connected peers are:\n', peers)
+})
 
 
 function appendMsgToChatLog(log, msg, who) {
@@ -238,12 +251,14 @@ async function negotiateConnection() {
 }
 
 sc.on("signal", async function ({to, from, candidate, description }) {
+  var pc = pcs[from].connect;
+  var clients = pcs[from].clientIs;
   try {
+    if(description !== "I am wanting to connect too!"){
+      sc.emit('signal', { to: from, from: self_id, description: "I am wanting to connect too!"});     
+    }
     if (description) {
       console.log("Received a description!!!");
-      if(description !== "I am wanting to connect too!"){
-        sc.emit('signal', { to: from, from: selfId, description: "I am wanting to connect too!"});     
-      }
       
       var readyForOffer =
         !clientIs.makingOffer &&
@@ -316,6 +331,82 @@ sc.on("signal", async function ({to, from, candidate, description }) {
     console.log(error);
   }
 });
+
+async function negotiateConnection(peer_id) {
+  var pc = pcs[peer_id].conn;
+  var clientIs = pcs[peer_id].clientIs; // Set up when pcs object is populated?
+  pc.onnegotiationneeded = async function() {
+    try {
+      console.log('Making an offer...');
+      clientIs.makingOffer = true;
+      try {
+        // Very latest browsers are totally cool with an
+        // argument-less call to setLocalDescription:
+        await pc.setLocalDescription();
+      } catch(error) {
+        // Older (and not even all that old) browsers
+        // are NOT cool. So because we're making an
+        // offer, we need to prepare an offer:
+        console.log('Falling back to older setLocalDescription method when making an offer...');
+        var offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+      } finally {
+        console.log('Sending an offer:\n', pc.localDescription);
+        sc.emit('signal', { to: peer_id, from: self_id, description: pc.localDescription });
+      }
+    } catch(error) {
+        console.error(error);
+    } finally {
+        clientIs.makingOffer = false;
+    }
+  };
+
+  // Logic to send candidate
+  pc.onicecandidate = function({candidate}) {
+    console.log(`Sending a candidate to ${peer_id}:\n`, candidate);
+    sc.emit('signal', { to: peer_id, from: self_id, candidate: candidate });
+  };
+
+// End negotiateConnection() function
+}
+
+function establishPeer(peer,isPolite) {
+  pcs[peer] = {};
+  pcs[peer].clientIs = {
+    polite: isPolite, // Be impolite with existing peers, who will themselves be polite
+    makingOffer: false,
+    ignoringOffer: false,
+    settingRemoteAnswerPending: false
+  };
+  pcs[peer].conn = new RTCPeerConnection(rtc_config);
+  // Load up our media stream tracks, too!
+  for (var track of stream.getTracks()) {
+    pcs[peer].conn.addTrack(track);
+  }
+  appendVideo(peer);
+}
+
+// Utility funciton to add videos to the DOM
+function appendVideo(peer) {
+  var videos = document.querySelector('#videos');
+  var video = document.createElement('video');
+  var peer_stream = new MediaStream();
+  video.id = "video-" + peer.split('#')[1];
+  video.srcObject = peer_stream;
+  video.autoplay = true;
+  pcs[peer].conn.ontrack = function(track) {
+    console.log('Heard an ontrack event');
+    peer_stream.addTrack(track.track);
+  }
+  videos.appendChild(video);
+}
+
+// Utlity function to remove videos from the DOM
+function removeVideo(peer) {
+  document.querySelector('#video-' + peer.split('#')[1]).remove();
+}
+
+
 
 //logic to send candidate
 pc.onicecandidate = function ({ candidate }) {
