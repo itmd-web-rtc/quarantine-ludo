@@ -1,9 +1,42 @@
 console.log(NAMESPACE);
 var sc = io.connect("/" + NAMESPACE);
+var peers;
+var selfId;
+
+
+function removePeer(peers, id) {
+  let index = peers.indexOf(id);
+  if(index === -1){
+    return
+  }
+  peers.splice(index, 1)
+  return peers;
+}
 
 sc.on("message", function (data) {
   console.log(`${data}`);
+  selfId = sc.id;
 });
+
+sc.on('connected peers', function(data){
+  peers=removePeer(data, sc.id)
+  console.log("The connected peers are:\n", peers)
+  sc.emit('new connected peer', sc.id)
+})
+
+sc.on('new connected peer', function(peer){
+  console.log('The new connected peer is: ', peer)
+  peers.push(peer)
+  console.log('The new connected peers are:\n', peers)
+  sc.emit('signal', {to: peer, from: selfId, description: "Wanting to connect"})
+})
+
+sc.on('new disconnected peer', function(peer) {
+  console.log(`The ${peer} has disconnected`)
+  peers = removePeer(peers, peer)
+  console.log('The remainning connected peers are:\n', peers)
+})
+
 
 var clientIs = {
   makingOffer: false,
@@ -13,6 +46,7 @@ var clientIs = {
 };
 
 var rtc_config = null;
+var pc = new RTCPeerConnection(rtc_config)
 
 //Setting basic to get peer connection
 var pc = new RTCPeerConnection(rtc_config);
@@ -149,6 +183,11 @@ async function startStream(name) {
   } catch (error) {}
 }
 
+// Here we are listening for and attaching any peer tracks
+pc.ontrack = function(track){
+  peerStream.addTrack(track.track)
+}
+
 
 sc.on("joined", function (e) {
   appendMsgToChatLog(chatLog, e, "join");
@@ -198,10 +237,14 @@ async function negotiateConnection() {
   };
 }
 
-sc.on("signal", async function ({ candidate, description }) {
+sc.on("signal", async function ({to, from, candidate, description }) {
   try {
     if (description) {
       console.log("Received a description!!!");
+      if(description !== "I am wanting to connect too!"){
+        sc.emit('signal', { to: from, from: selfId, description: "I am wanting to connect too!"});     
+      }
+      
       var readyForOffer =
         !clientIs.makingOffer &&
         (pc.signalingState == "stable" || clientIs.settingRemoteAnswerPending);

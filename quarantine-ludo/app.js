@@ -33,14 +33,27 @@ namespaces.on("connection", function (socket) {
   console.log("connected");
   socket.emit(
     "message",
-    `successfully Connected on NAMESPACE: ${namespace.name}`
+    `${socket.id} successfully Connected on NAMESPACE: ${namespace.name}`
   );
+  //not getting this
+  namespace.clients(function(error,clients) {
+    socket.emit('connected peers', clients);
+  });
 
+  socket.on('new connected peer', function(data) {
+    socket.broadcast.emit('new connected peer', data);
+  });
+
+  socket.on('disconnect', function() {
+    console.log(`${socket.id} disconnected`);
+    namespace.emit('new disconnected peer', socket.id);
+  });
   //send the singal to others
-  socket.on('signal', function({ description, candidate }) {
+  socket.on('signal', function({to, from, description, candidate }) {
     console.log(`Received a singal from ${socket.id}`);
-    console.log({ description, candidate });
-    socket.broadcast.emit('signal', { description, candidate });
+    console.log({to, from, description, candidate });
+    socket.to(to).emit('signal', {to, from, description, candidate});
+    
   });
 
   socket.on('joined', function(e) {
