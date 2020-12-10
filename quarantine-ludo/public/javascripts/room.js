@@ -1,22 +1,20 @@
 console.log(NAMESPACE);
 var sc = io.connect("/" + NAMESPACE);
 
-sc.on("message", function (data) {
-  console.log(`${data}`);
-});
-
-var clientIs = {
-  makingOffer: false,
-  ignoringOffer: false,
-  polite: false,
-  settingRemoteAnswerPending: false,
+var rtc_config = { 
+  iceServers: [
+    {
+      urls: ['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']
+    }
+  ]
 };
-
-var rtc_config = null;
-
-//Setting basic to get peer connection
 var pc = new RTCPeerConnection(rtc_config);
+var peers;
+var self_id;
 
+var pcs = {}
+
+var peer_streams = {};
 //set data channel
 var dc = null;
 
@@ -28,6 +26,46 @@ var chatButton = document.querySelector("#send-button");
 var joinForm = document.querySelector("#join-form");
 var joinName = document.querySelector("#join-name");
 
+function removePeer(peers, id) {
+  let index = peers.indexOf(id);
+  if(index === -1){
+    return
+  }
+  peers.splice(index, 1)
+  return peers;
+}
+
+sc.on("message", function (data) {
+  console.log(`${data}`);
+  self_id = sc.id;
+
+});
+
+sc.on('connected peers', function(data){
+  peers=removePeer(data, sc.id)
+  console.log("The connected peers are:\n", peers)
+  sc.emit('new connected peer', sc.id)
+  for(let peer of peers){
+    establishPeer(peer, false);
+  }
+})
+
+sc.on('new connected peer', function(peer){
+  console.log('The new connected peer is: ', peer)
+  peers.push(peer)
+  console.log('The new connected peers are:\n', peers)
+  establishPeer(peer, true);
+  for (var track of stream.getTracks()) {
+    pcs[peer].conn.addTrack(track);
+  }
+})
+
+sc.on('new disconnected peer', function(peer) {
+  console.log(`The ${peer} has disconnected`)
+  peers = removePeer(peers, peer)
+  removeVideo(peer)
+  console.log('The remainning connected peers are:\n', peers)
+})
 
 
 function appendMsgToChatLog(log, msg, who) {
@@ -110,44 +148,50 @@ pc.ondatachannel = function (e) {
 };
 
 //video Streams
-var media_constraints = { video: true, audio: false };
+var media_constraints = { video: true, audio: true };
 
-var selfVideo = document.querySelector("#self-video");
-var selfStream = new MediaStream();
-selfVideo.srcObject = selfStream;
+// var selfVideo = document.querySelector("#self-video");
+// var selfStream = new MediaStream();
+// selfVideo.volume = 0;
+// selfVideo.srcObject = selfStream;
 
-var peerVideo = document.querySelector("#peer-video");
-var peerStream = new MediaStream();
-console.log(peerStream);
-peerVideo.srcObject = peerStream;
+// var peerVideo = document.querySelector("#peer-video");
+// var peerStream = new MediaStream();
+// console.log(peerStream);
+// peerVideo.srcObject = peerStream;
 
-async function startStream(name) {
+function sendJoinedMessage(name){
+   //send joined message with current timestamp
+   sc.emit(
+    "joined",
+    `${name} joined the chat! at ${new Date().toLocaleTimeString("en-US", {
+      hour12: true,
+      hour: "numeric",
+      minute: "numeric",
+    })}`
+  );
+
+  
+  //Player name Display
+  console.log("Join Name = "+ joinName.value);
+}
+var stream = new MediaStream();
+
+async function startStream() {
   try {
-    var stream = await navigator.mediaDevices.getUserMedia(media_constraints);
+    stream = await navigator.mediaDevices.getUserMedia(media_constraints);
     for (var track of stream.getTracks()) {
       pc.addTrack(track);
     }
-
-    selfVideo.srcObject = stream;
-    //send joined message with current timestamp
-    sc.emit(
-      "joined",
-      `${name} joined the chat! at ${new Date().toLocaleTimeString("en-US", {
-        hour12: true,
-        hour: "numeric",
-        minute: "numeric",
-      })}`
-    );
-
-    
-    //Player name Display
-    console.log("Join Name = "+ joinName.value);
-
-
-
+    //selfStream.addTrack(stream.getTracks()[0]);
+    // selfVideo.srcObject = stream;
   } catch (error) {}
 }
 
+// Here we are listening for and attaching any peer tracks
+pc.ontrack = function(track){
+  peerStream.addTrack(track.track)
+}
 
 sc.on("joined", function (e) {
   appendMsgToChatLog(chatLog, e, "join");
@@ -169,38 +213,29 @@ callButton.addEventListener("click", function (e) {
 });
 
 function joinCall(name) {
-  clientIs.polite = true;
-  negotiateConnection();
-  startStream(name);
+  startStream()
+  for (var pc in pcs) {
+    console.log('Negotiating connection with', pc);
+    for (var track of stream.getTracks()) {
+      try {
+        pcs[pc].conn.addTrack(track);
+      } catch(err) {
+        console.error(err);
+      }
+    }
+    negotiateConnection(pcs[pc].conn, pcs[pc].clientIs, pc);
+  }
+  sendJoinedMessage(name)
   joinForm.hidden = true;
 }
 
-async function negotiateConnection() {
-  pc.onnegotiationneeded = async function () {
-    try {
-      console.log("Making Offer");
-      clientIs.makingOffer = true;
-      document.getElementById("p1").innerHTML=joinName.value;
-      try {
-        await pc.setLocalDescription();
-      } catch (error) {
-        var offer = await pc.createOffer();
-        await pc.setLocalDescription(new RTCSessionDescription(offer));
-      } finally {
-        sc.emit("signal", { description: pc.localDescription });
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      clientIs.makingOffer = false;
-    }
-  };
-}
-
-sc.on("signal", async function ({ candidate, description }) {
+sc.on("signal", async function ({to, from, candidate, description }) {
+  var pc = pcs[from].connect;
+  var clientIs = pcs[from].clientIs;
   try {
     if (description) {
       console.log("Received a description!!!");
+      
       var readyForOffer =
         !clientIs.makingOffer &&
         (pc.signalingState == "stable" || clientIs.settingRemoteAnswerPending);
@@ -238,7 +273,7 @@ sc.on("signal", async function ({ candidate, description }) {
             // create a answer, if that's what's needed...
             var offer;
             console.log("Trying to prepare an answer:");
-            offer = await pc.createAnswer();
+            offer = await pc.createAnswer(); //doubt
             
 
           } else {
@@ -248,9 +283,9 @@ sc.on("signal", async function ({ candidate, description }) {
             
           }
 
-          await pc.setLocalDescription(new RTCSessionDescription(offer));
+          await pc.setLocalDescription(new RTCSessionDescription(offer)); //doubt
         } finally {
-          sc.emit("signal", { description: pc.localDescription });
+          sc.emit('signal', { to: from, from: self_id, description: pc.localDescription });
         }
       }
     } else if (candidate) {
@@ -273,6 +308,67 @@ sc.on("signal", async function ({ candidate, description }) {
   }
 });
 
+async function negotiateConnection(pc, clientIs, id) {
+  console.log('Need to work with negotiating id', id, '...');
+  pc.onnegotiationneeded = async function() {
+    try {
+      console.log('Making an offer...');
+      clientIs.makingOffer = true;
+      try {
+        //for latest browsers
+        await pc.setLocalDescription();
+      } catch(error) {
+        console.log('Falling back to older setLocalDescription method when making an offer...');
+        var offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+      } finally {
+        console.log('Sending an offer:\n', pc.localDescription);
+        sc.emit('signal', { to: id, from: self_id, description: pc.localDescription });
+      }
+    } catch(error) {
+        console.error(error);
+    } finally {
+        clientIs.makingOffer = false;
+    }
+  };
+
+  // Logic to send candidate
+  pc.onicecandidate = function({candidate}) {
+    console.log(`Sending a candidate to ${id}:\n`, candidate);
+    sc.emit('signal', { to: id, from: self_id, candidate: candidate });
+  };
+}
+
+function establishPeer(peer,isPolite) {
+  pcs[peer] = {};
+  pcs[peer].clientIs = {
+    polite: isPolite, 
+    makingOffer: false,
+    ignoringOffer: false,
+    settingRemoteAnswerPending: false
+  };
+  pcs[peer].conn = new RTCPeerConnection(rtc_config);
+  pcs[peer].conn.ontrack = function({track}) {
+    console.log('Heard an ontrack event:\n', track);
+    track.onunmute = function() {
+      console.log('Heard an unmute event');
+      peer_streams[peer].addTrack(track);
+    };
+  };
+  appendVideoToRespectivePlayers(peer);
+}
+// Utility funciton to add videos to the DOM
+function appendVideoToRespectivePlayers(peer) {
+ // Dhiraj to work on this
+}
+
+// Utlity function to remove videos from the DOM
+function removeVideo(peer) {
+  document.querySelector('#video-' + peer.split('#')[1]).remove();
+}
+
+
+
 //logic to send candidate
 pc.onicecandidate = function ({ candidate }) {
   sc.emit("signal", { candidate: candidate });
@@ -284,20 +380,25 @@ pc.onicecandidate = function ({ candidate }) {
 
 //---Dice roll---
 var dice = document.querySelector("#dice-roll");
+
 var badtext = document.querySelector('#badtext');
 var text = document.querySelector('#player');
+
 var redpawn1 = document.querySelector('#redpawn1');
 var redpawn2 = document.querySelector('#redpawn2');
 var redpawn3 = document.querySelector('#redpawn3');
 var redpawn4 = document.querySelector('#redpawn4');
+
 var greenpawn1 = document.querySelector('#greenpawn1');
 var greenpawn2 = document.querySelector('#greenpawn2');
 var greenpawn3 = document.querySelector('#greenpawn3');
 var greenpawn4 = document.querySelector('#greenpawn4');
+
 var bluepawn1 = document.querySelector('#bluepawn1');
 var bluepawn2 = document.querySelector('#bluepawn2');
 var bluepawn3 = document.querySelector('#bluepawn3');
 var bluepawn4 = document.querySelector('#bluepawn4');
+
 var yellowpawn1 = document.querySelector('#yellowpawn1');
 var yellowpawn2 = document.querySelector('#yellowpawn2');
 var yellowpawn3 = document.querySelector('#yellowpawn3');
@@ -371,27 +472,27 @@ function DontHaveOtherFree() {
 
 dice.addEventListener("click", function (e) {
   ///changes dice number
+
   if (!clicked) {
     num = Math.floor((Math.random() * 6) + 1);
     dice.style.backgroundImage = "url(images/" + num + ".jpg)";
     clicked = true;
-  }
-
-  //If number not 6 change player
-  if (num != 6 && DontHaveOtherFree()) {
+    
+    if (num != 6 && DontHaveOtherFree()) {
       badtext.innerText = "Unfortunately you are stuck";
       window.setTimeout(changePlayer, 1000);
       clicked = false;
-  }
+    }
 
-  if (num != 6 && !DontHaveOtherFree()) {
-    badtext.innerText = "Click your pawn";
-    clicked = false;
-    n = num;
-  }
-  
-  //if number is 6 move pawn from player block to board
-  if(num == 6 && !DontHaveOtherFree()){
+    if (num != 6 && !DontHaveOtherFree()) {
+      badtext.innerText = "Click your pawn";
+      clicked = false;
+      n = num;
+    }
+
+
+    //if number is 6 move pawn from player block to board
+  if(num == 6 && DontHaveOtherFree()){
     if(text.innerText == 'green'){
       var g1 = document.querySelector('#g1');
       g1.appendChild(greenpawn1);
@@ -406,7 +507,7 @@ dice.addEventListener("click", function (e) {
       dice.style.backgroundImage = "url(images/dice.gif)";
     }else if(text.innerText == 'blue'){
       var b1 = document.querySelector('#b1');
-      b1.appendChild(bluwepawn1);
+      b1.appendChild(bluepawn1);
       currpawn = bluepawn1
       positions[currpawn] = b1;
       dice.style.backgroundImage = "url(images/dice.gif)";
@@ -419,6 +520,10 @@ dice.addEventListener("click", function (e) {
     }
   }
 
+  }
+
+  //If number not 6 change player
+
 });
 
 // Random num move for all pawns
@@ -428,12 +533,14 @@ function randomMove(Color, paw, number) {
   num = number;
   currpawn = currcolor + "pawn" + NumOfPaw;
   currPos = positions[currpawn];
-  var pcolor = str.slice(0, 1);
-  var pnum = str.slice(1);
+  var pcolor = Color.slice(0, 1);
+  var pnum = paw
   var newnum = pnum + num;
   newPos = pcolor + newnum;
-  var destination = document.querySelector(newPos);
-  var source = document.querySelector(currPos);
+  console.log(newPos)
+  var destination = document.querySelector('#'+newPos);
+  console.log(currpawn)
+  var source = document.querySelector('#'+currpawn);
   destination.appendChild(source);
   positions[currpawn] = destination;
   dice.style.backgroundImage = "url(images/dice.gif)";
