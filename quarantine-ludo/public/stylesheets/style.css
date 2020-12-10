@@ -68,6 +68,24 @@ video {
   min-height: 100%;
   min-width: 100%;
 }
+
+/*Colored borders of video box*/
+#redvideo {
+  border: 5px solid #dc2418;
+}
+
+#bluevideo {
+  border: 5px solid #0092dc;
+}
+
+#yellowvideo {
+  border: 5px solid #f6c700;
+}
+
+#greenvideo {
+  border: 5px solid #84c21f;
+}
+
 .wrapper {
   display: grid;
   height: 100%;

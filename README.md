@@ -32,3 +32,10 @@ If a piece lands upon a piece of the same colour, this forms a block. This block
 When a piece has circumnavigated the board, it proceeds up the home column. A piece can only be moved onto the home triangle by an exact throw.
 
 The first person to move all 4 pieces into the home triangle wins.
+
+
+
+### Our Future plans are:
+
+# 1. Allow user to set the microphone and video permissions before joining call.
+# 2. Allow users to download the chat transcript.
