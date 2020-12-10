@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 //Soket for URL Rooms
 const namespaces = io.of(/^\/[a-z]{3}-[a-z]{4}-[a-z]{3}$/);
 
-namespaces.on("connection", function (socket) {
+namespaces.on("connect", function (socket) {
   const namespace = socket.nsp;
   console.log("connected");
   socket.emit(
