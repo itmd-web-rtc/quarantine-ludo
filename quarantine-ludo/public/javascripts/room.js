@@ -549,22 +549,89 @@ function randomMove(Color, paw, number) {
 }
 
 //Event listeners for pawns click
+
+//Event listeners for Red pawns click
 redpawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
 
+redpawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,n);
+});
+
+redpawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,n);
+});
+
+redpawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,n);
+});
+
+
+//Event listeners for green pawns click
 greenpawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
 
+greenpawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,n);
+});
+
+greenpawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,n);
+});
+
+greenpawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,n);
+});
+
+//Event listeners for yellow pawns click
 yellowpawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
 
+yellowpawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,n);
+});
+
+yellowpawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,n);
+});
+
+yellowpawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,n);
+});
+
+
+//Event listeners for blue pawns click
 bluepawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
+});
+
+bluepawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,n);
+});
+
+bluepawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,n);
+});
+
+bluepawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,n);
 });
