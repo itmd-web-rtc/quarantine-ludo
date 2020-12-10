@@ -630,3 +630,18 @@ bluepawn1.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,1,n);
 });
+
+bluepawn2.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,2,n);
+});
+
+bluepawn3.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,3,n);
+});
+
+bluepawn4.addEventListener("click", function () {
+  var color = text.innerHTML;
+  randomMove(color,4,n);
+});
