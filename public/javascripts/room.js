@@ -329,6 +329,33 @@ function establishPeer(peer,isPolite) {
   };
   pcs[peer].conn = new RTCPeerConnection(rtc_config);
   // Respond to peer track events
+
+  pcs[peer].conn.onconnectionstatechange = function (e) {
+    if (pcs[peer].conn.connectionState == "connected") {
+      
+        console.log("Creating a data channel on the initiating side");
+        dc = pcs[peer].conn.createDataChannel("text chat");
+        // we are letting the polite one estavlish the channe;
+        gdc = pcs[peer].conn.createDataChannel("game data") 
+        addDataChannelEventListner(dc); 
+        // need to add game events
+      }
+    
+  };
+  
+  //listen for datachannel
+  // This will on fire on receiving end of the connection
+  pcs[peer].conn.ondatachannel = function (e) {
+    console.log("Data Channel is open");
+    if(e.channel.label == 'text chat'){
+      dc = e.channel;
+      addDataChannelEventListner(dc);
+    }
+    if(e.channel.label == "game data"){
+      gdc = e.channel
+    }
+  };
+
   pcs[peer].conn.ontrack = function({track}) {
     console.log('Heard an ontrack event:\n', track);
     // Append track to the correct peer stream object
