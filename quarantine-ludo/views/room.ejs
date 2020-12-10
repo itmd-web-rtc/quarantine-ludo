@@ -234,10 +234,12 @@
 
           </div>
 
+          <figure id="videos"></figure>
+
           <div class="room-video-grid">
             <div class="room-video">
               <div class="player-name" id="p1">Player 1</div>
-              <video id='redvideo'
+              <video 
                 class="room-video-stream"
                 id="self-video"
                 width="100%"
@@ -248,7 +250,7 @@
             </div>
             <div class="room-video">
               <div class="player-name" id="p2">Player 2</div>
-              <video id='bluevideo'
+              <video
                 id="peer-video"
                 class="room-video-stream"
                 width="100%"
@@ -284,9 +286,11 @@
     <script>
       window.NAMESPACE = `<%- namespace %>`;
     </script>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>`
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="javascripts/room.js"></script>
+    <script src="javascripts/drawGameBoard.js"></script>
   </body>
 </html>
