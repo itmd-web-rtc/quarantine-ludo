@@ -374,16 +374,32 @@ function establishPeer(peer,isPolite) {
 
 // Utility funciton to add videos to the DOM with an empty MediaStream
 function appendVideo(id) {
-  var videos = document.querySelector('#videos');
+  var videos = document.querySelector('#room-grid');
+  var div = document.createElement("div");
+  div.className = "room-video";
+
+  var divPlayerName = document.createElement("div");
+
+  divPlayerName.className = "player-name";
+  divPlayerName.id = "p2";
+
+  divPlayerName.innerHTML = "Player 2";
+
+  div.appendChild(divPlayerName);
   var video = document.createElement('video');
   // Create an empty stream on the peer_streams object;
   // Remote track will be added later
-  peer_streams[id] = new MediaStream();
   video.autoplay = true;
-  video.id = "video-" + id.split('#')[1];
+  video.width = "100%"
+  video.height="100%"
+  video.autoplay = true;
+  video.playsinline = true;
+  video.id = "video-" + peer_id;
   // Set the video source to the empty peer stream
-  video.srcObject = peer_streams[id];
-  videos.appendChild(video);
+  video.srcObject = peers[peer_id].stream;
+  div.appendChild(video);
+  videos.appendChild(div);
+  //Player name Display
 }
 
 // Utlity function to remove videos from the DOM
