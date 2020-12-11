@@ -545,7 +545,6 @@ function dontHaveOtherFree() {
     if (block.contains(redpawn1) || block.contains(redpawn2) || block.contains(redpawn3) || block.contains(redpawn4))
      return true;
   }
-
   return false;
 }
 
@@ -578,7 +577,6 @@ dice.addEventListener("click", function (e) {
         dice.style.backgroundImage = "url(images/" + num + ".jpg)";
         n = num;
     }
-
   }
 
   //If number not 6 change player
