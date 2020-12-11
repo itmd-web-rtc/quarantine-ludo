@@ -280,10 +280,22 @@ function sendJoinedMessage(name){
    })}`
  );
 
+  }
  
- //Player name Display
- console.log("Join Name = "+ joinName.value);
-}
+  function sendLeftMessage(name){
+    //send joined message with current timestamp
+    sc.emit(
+     "joined",
+     `${name} left the chat! at ${new Date().toLocaleTimeString("en-US", {
+       hour12: true,
+       hour: "numeric",
+       minute: "numeric",
+     })}`
+   );
+   
+   //Player name Display
+   console.log("Join Name = "+ joinName.value);
+  }
 
 /*
 
@@ -407,7 +419,7 @@ function appendVideo(id) {
   divPlayerName.className = "player-name";
   divPlayerName.id = "p2";
 
-  divPlayerName.innerHTML = "Player 2";
+  divPlayerName.innerHTML = "Player";
   div.appendChild(divPlayerName);
   var video = document.createElement('video');
   // Create an empty stream on the peer_streams object;
@@ -431,7 +443,8 @@ function appendVideo(id) {
 function removeVideo(peer) {
   var old_video = document.querySelector('#video-' + peer.split('#')[1]);
   if (old_video) {
-    old_video.remove();
+    old_video.parentElement.remove();
+    sendLeftMessage(joinName.value);
   }
 }
 
