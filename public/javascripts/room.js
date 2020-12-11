@@ -29,6 +29,8 @@ var peer_streams = {};
 var media_constraints = { video: true, audio: false };
 
 var dc = null;
+
+var gdc = null;
 // Handle self video
 // TODO: Add a Start Video button that handles all of this
 // Problems on iOS with requesting media on page load, it seems.
@@ -252,6 +254,20 @@ sc.on("joined", function (e) {
 });
 
 
+function addDataChannelGameEventListner(datachannel) {
+  datachannel.onmessage = function (e) {
+    console.log(`Heard this action: ${e.action}`)
+  };
+
+  datachannel.onopen = function () {
+    
+  };
+
+  datachannel.onclose = function () {
+   
+  };
+  
+}
 
 function sendJoinedMessage(name){
   //send joined message with current timestamp
@@ -346,10 +362,11 @@ function establishPeer(peer,isPolite) {
         
         console.log("Creating a data channel on the initiating side");
         dc = pcs[peer].conn.createDataChannel("text chat");
+        addDataChannelEventListner(dc); 
         if (dataChannelArray.indexOf(dc) === -1) dataChannelArray.push(dc);
         // we are letting the polite one estavlish the channe;
-        var gdc = pcs[peer].conn.createDataChannel("game data");
-        addDataChannelEventListner(dc); 
+        gdc = pcs[peer].conn.createDataChannel("game data");
+        addDataChannelGameEventListner(gdc); 
         // need to add game events
       }
     
@@ -364,7 +381,8 @@ function establishPeer(peer,isPolite) {
       addDataChannelEventListner(dc);
     }
     if(e.channel.label == "game data"){
-      var gdc = e.channel
+      gdc = e.channel
+      addDataChannelGameEventListner(gdc);
     }
   };
 
@@ -579,11 +597,7 @@ dice.addEventListener("click", function (e) {
     }
   }
 
-  //If number not 6 change player
-  gdc.onmessage = function(e){
-    var data = JSON.parse(e.data)
-    console.log(`Heard this action: ${data.action}`)
-  }
+
 });
 
 
