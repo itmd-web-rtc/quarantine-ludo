@@ -613,7 +613,30 @@ function randomMove(Color, paw, number) {
         newPos = greenpawn[0];
         positions[currpawn] = newPos;
       }
-  }  //var pcolor = Color.slice(0, 1);
+  }  
+  
+  if(currPos != 0){
+    var index = positions.findIndex(currPos);
+    var newIndex = index + num;
+    console.log("New Index:"+newIndex);
+    if(currcolor == "red")
+    {
+      newPos = redpawn[newIndex];
+      positions[currpawn] = newPos;
+    }else if(currcolor == "blue"){
+      newPos = bluepawn[newIndex];
+      positions[currpawn] = newPos;
+    }
+    else if(currcolor == "yellow"){
+      newPos = yellowpawn[newIndex];
+      positions[currpawn] = newPos;
+    }
+    else{
+      newPos = greenpawn[newIndex];
+      positions[currpawn] = newPos;
+    }
+  }
+  //var pcolor = Color.slice(0, 1);
   //var pnum = paw
   //var newnum = pnum + num;
   //newPos = pcolor + newnum;
