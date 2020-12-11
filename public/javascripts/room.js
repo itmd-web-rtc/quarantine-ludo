@@ -348,7 +348,7 @@ function establishPeer(peer,isPolite) {
         dc = pcs[peer].conn.createDataChannel("text chat");
         if (dataChannelArray.indexOf(dc) === -1) dataChannelArray.push(dc);
         // we are letting the polite one estavlish the channe;
-        var gdc = pcs[peer].conn.createDataChannel("game data");
+       // gdc = pcs[peer].conn.createDataChannel("game data");
         addDataChannelEventListner(dc); 
         // need to add game events
       }
@@ -364,7 +364,7 @@ function establishPeer(peer,isPolite) {
       addDataChannelEventListner(dc);
     }
     if(e.channel.label == "game data"){
-      var gdc = e.channel
+     // gdc = e.channel
     }
   };
 
@@ -381,7 +381,7 @@ function establishPeer(peer,isPolite) {
 
 // Utility funciton to add videos to the DOM with an empty MediaStream
 function appendVideo(id) {
-  var videos = document.querySelector('#room-grid');
+  var videos = document.querySe\lector('#room-grid');
   var div = document.createElement("div");
   div.className = "room-video";
   var divPlayerName = document.createElement("div");
@@ -545,6 +545,7 @@ function dontHaveOtherFree() {
     if (block.contains(redpawn1) || block.contains(redpawn2) || block.contains(redpawn3) || block.contains(redpawn4))
      return true;
   }
+
   return false;
 }
 
@@ -560,7 +561,7 @@ dice.addEventListener("click", function (e) {
     
     if (num != 6 && dontHaveOtherFree()) {
       badtext.innerText = "Unfortunately you are stuck";
-      gdc.send({ data: { action: 'fire', message: badtext.innerText } });
+     // gdc.send({ data: { action: 'fire', message: badtext.innerText } });
       window.setTimeout(changePlayer, 1000);
       clicked = false;
     }
@@ -573,22 +574,67 @@ dice.addEventListener("click", function (e) {
 
 
     //if number is 6 move pawn from player block to board
-    if(num == 6 && dontHaveOtherFree()){
-        dice.style.backgroundImage = "url(images/" + num + ".jpg)";
-        n = num;
+  if(num == 6 && dontHaveOtherFree()){
+    if(text.innerText == 'green'){
+      var g1 = document.querySelector('#g1');
+      g1.appendChild(greenpawn1);
+      currpawn = greenpawn1
+      positions[currpawn] = g1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else if(text.innerText == 'yellow'){
+      var y1 = document.querySelector('#y1');
+      y1.appendChild(yellowpawn1);
+      currpawn = yellowpawn1
+      positions[currpawn] = y1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else if(text.innerText == 'blue'){
+      var b1 = document.querySelector('#b1');
+      b1.appendChild(bluepawn1);
+      currpawn = bluepawn1
+      positions[currpawn] = b1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
+    }else{
+      var r1 = document.querySelector('#r1');
+      r1.appendChild(redpawn1);
+      currpawn = redpawn1
+      positions[currpawn] = r1;
+      dice.style.backgroundImage = "url(images/dice.gif)";
     }
   }
 
+  }
+
   //If number not 6 change player
-  gdc.onmessage = function(e){
+ /* gdc.onmessage = function(e){
     var data = JSON.parse(e.data)
     console.log(`Heard this action: ${data.action}`)
   }
 });
-
+*/
 
 
 // Random num move for all pawns
+/*function randomMove(Color, paw, number) {
+ /* NumOfPaw = paw;
+  currcolor = Color;
+  num = number;
+  currpawn = currcolor + "pawn" + NumOfPaw;
+  currPos = positions[currpawn];
+  var pcolor = Color.slice(0, 1);
+  var pnum = paw
+  var newnum = pnum + num;
+  newPos = pcolor + newnum;
+  console.log(newPos)
+  var destination = document.querySelector('#'+newPos);
+  console.log(currpawn)
+  var source = document.querySelector('#'+currpawn);
+  destination.appendChild(source);
+  positions[currpawn] = destination;
+  dice.style.backgroundImage = "url(images/dice.gif)";
+  window.setTimeout(changePlayer, 1000);
+  clicked = false;
+}*/
+
 function randomMove(Color, paw, number) {
   NumOfPaw = paw;
   currcolor = Color;
@@ -641,6 +687,9 @@ function randomMove(Color, paw, number) {
   //var newnum = pnum + num;
   //newPos = pcolor + newnum;
   console.log(newPos)
+
+
+  
   var destination = document.querySelector('#'+newPos);
   console.log(currpawn)
   var source = document.querySelector('#'+currpawn);
@@ -687,4 +736,5 @@ bluepawn3.addEventListener("click", function () {
 bluepawn4.addEventListener("click", function () {
   var color = text.innerHTML;
   randomMove(color,4,n);
+});
 });
