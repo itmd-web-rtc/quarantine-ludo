@@ -545,7 +545,6 @@ function dontHaveOtherFree() {
     if (block.contains(redpawn1) || block.contains(redpawn2) || block.contains(redpawn3) || block.contains(redpawn4))
      return true;
   }
-
   return false;
 }
 
@@ -578,7 +577,6 @@ dice.addEventListener("click", function (e) {
         dice.style.backgroundImage = "url(images/" + num + ".jpg)";
         n = num;
     }
-
   }
 
   //If number not 6 change player
@@ -595,24 +593,27 @@ function randomMove(Color, paw, number) {
   NumOfPaw = paw;
   currcolor = Color;
   num = number;
+  console.log("Dice Numer:"+num);
   currpawn = currcolor + "pawn" + NumOfPaw;
   currPos = positions[currpawn];
-  if(currPos == 0 ){
+  if(currPos == 0 && num == 6){
       if(currcolor == "red")
       {
         newPos = redpawn[0];
+        positions[currpawn] = newPos;
       }else if(currcolor == "blue"){
         newPos = bluepawn[0];
+        positions[currpawn] = newPos;
       }
       else if(currcolor == "yellow"){
         newPos = yellowpawn[0];
+        positions[currpawn] = newPos;
       }
       else{
         newPos = greenpawn[0];
+        positions[currpawn] = newPos;
       }
-
-  }
-  //var pcolor = Color.slice(0, 1);
+  }  //var pcolor = Color.slice(0, 1);
   //var pnum = paw
   //var newnum = pnum + num;
   //newPos = pcolor + newnum;
@@ -623,8 +624,9 @@ function randomMove(Color, paw, number) {
   destination.appendChild(source);
   positions[currpawn] = destination;
   dice.style.backgroundImage = "url(images/dice.gif)";
-  if(num != 6)
-      window.setTimeout(changePlayer, 1000);
+  if(num != 6 && !DontHaveOtherFree()){
+    dice.style.backgroundImage = "url(images/" + num + ".jpg)";
+  }
   clicked = false;
 }
 
