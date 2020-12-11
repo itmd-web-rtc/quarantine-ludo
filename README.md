@@ -1,4 +1,5 @@
 # Quarantine-ludo (WebRTC Project-2)
+
 ## This is a repositiory for project-2
 
 ![Ludo](images/ludo.png "Ludo")
@@ -7,7 +8,7 @@
 
 A Ludo board is is square with a pattern on it in the shape of a cross, each arm being divided into three adjacent columns of eight squares. The middle squares form the home column for each colour and cannot be landed upon by other colours. The middle of the cross forms a large square which is the 'home' area and which is divided into 4 home triangles, one of each colour. At each corner, separate to the main circuit are coloured circles (or squares) where the pieces are placed to begin.
 
-Counters start their circuit one square in from the end of the arm and adjacent to the starting circle. 
+Counters start their circuit one square in from the end of the arm and adjacent to the starting circle.
 
 The starting square, the starting circle, the home triangle and all the home column squares are coloured to match the corresponding pieces.
 
@@ -33,9 +34,8 @@ When a piece has circumnavigated the board, it proceeds up the home column. A pi
 
 The first person to move all 4 pieces into the home triangle wins.
 
-
-
 ### Our Future plans are:
 
-# 1. Allow user to set the microphone and video permissions before joining call.
-# 2. Allow users to download the chat transcript.
+- Allow user to set the microphone and video permissions before joining call.
+- Allow users to download the chat transcript.
+- mplement 4 player ludo game logic.
