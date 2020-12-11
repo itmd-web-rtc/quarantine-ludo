@@ -16,6 +16,7 @@ var self_id;
 // TODO: Refactor this so only the `pcs` object is needed?
 var peers;
 
+var dataChannelArray =[];
 // Object to hold each per-ID RTCPeerConnection and client state
 var pcs = {};
 
@@ -231,8 +232,14 @@ function addDataChannelEventListner(datachannel) {
     msg2= msg2.trim();
     if (msg2 !== "") {
       appendMsgToChatLog(chatLog, msg2, "self");
-      datachannel.send(msg2);
       chatInput.value = "";
+      datachannel.send(msg2);
+      dataChannelArray.forEach((dc)=>{
+        if(datachannel != dc){
+          dc.send(msg2);
+        }
+      });
+      
     }
   });
 }
@@ -332,11 +339,12 @@ function establishPeer(peer,isPolite) {
 
   pcs[peer].conn.onconnectionstatechange = function (e) {
     if (pcs[peer].conn.connectionState == "connected") {
-      
+        
         console.log("Creating a data channel on the initiating side");
         dc = pcs[peer].conn.createDataChannel("text chat");
+        if (dataChannelArray.indexOf(dc) === -1) dataChannelArray.push(dc);
         // we are letting the polite one estavlish the channe;
-        gdc = pcs[peer].conn.createDataChannel("game data") 
+        gdc = pcs[peer].conn.createDataChannel("game data");
         addDataChannelEventListner(dc); 
         // need to add game events
       }
@@ -429,13 +437,15 @@ callButton.addEventListener('click', async function(e) {
       // Set the wheels in motion to negotiate the connection with each connected peer
       negotiateConnection(pcs[pc].conn, pcs[pc].clientIs, pc);
     }
+      // Remove the join button
+  sendJoinedMessage(joinName.value)
+  callButton.remove();
+  joinForm.remove();
       } else {
         alert("Enter your Name!");
       }
   
-  // Remove the join button
-  sendJoinedMessage(joinName.value)
-  callButton.remove();
+
   // TODO: Add a "Leave Call" button, and buttons for controlling audio/video
 
 });
