@@ -10,14 +10,13 @@ var rtc_config = {
   ]
 };
 
-var pc = new RTCPeerConnection(rtc_config);
-
 // Track self id from socket.io
 var self_id;
 // Array for tracking IDs of connected peers
 // TODO: Refactor this so only the `pcs` object is needed?
 var peers;
 
+var dataChannelArray =[];
 // Object to hold each per-ID RTCPeerConnection and client state
 var pcs = {};
 
@@ -233,8 +232,17 @@ function addDataChannelEventListner(datachannel) {
     msg2= msg2.trim();
     if (msg2 !== "") {
       appendMsgToChatLog(chatLog, msg2, "self");
-      datachannel.send(msg2);
       chatInput.value = "";
+      datachannel.send(msg2);
+
+
+      //Send data to datachanel which are not same
+      dataChannelArray.forEach((dc)=>{
+        if(datachannel != dc){
+          dc.send(msg2);
+        }
+      });
+      
     }
   });
 }
@@ -243,32 +251,7 @@ sc.on("joined", function (e) {
   appendMsgToChatLog(chatLog, e, "join");
 });
 
-//Once the RTC connection is steup and connected the peer will open data channel
-pc.onconnectionstatechange = function (e) {
-  if (pc.connectionState == "connected") {
-    if (clientIs.polite) {
-      console.log("Creating a data channel on the initiating side");
-      dc = pc.createDataChannel("text chat");
-      // we are letting the polite one estavlish the channe;
-      gdc = pc.createDataChannel("game data") 
-      addDataChannelEventListner(dc); 
-      // need to add game events
-    }
-  }
-};
 
-//listen for datachannel
-// This will on fire on receiving end of the connection
-pc.ondatachannel = function (e) {
-  console.log("Data Channel is open");
-  if(e.channel.label == 'text chat'){
-    dc = e.channel;
-    addDataChannelEventListner(dc);
-  }
-  if(e.channel.label == "game data"){
-    gdc = e.channel
-  }
-};
 
 function sendJoinedMessage(name){
   //send joined message with current timestamp
@@ -284,11 +267,6 @@ function sendJoinedMessage(name){
  
  //Player name Display
  console.log("Join Name = "+ joinName.value);
-}
-
-// Here we are listening for and attaching any peer tracks
-pc.ontrack = function(track){
- peerStream.addTrack(track.track)
 }
 
 /*
@@ -361,6 +339,35 @@ function establishPeer(peer,isPolite) {
   };
   pcs[peer].conn = new RTCPeerConnection(rtc_config);
   // Respond to peer track events
+
+  //Create data channels for peers
+  pcs[peer].conn.onconnectionstatechange = function (e) {
+    if (pcs[peer].conn.connectionState == "connected") {
+        
+        console.log("Creating a data channel on the initiating side");
+        dc = pcs[peer].conn.createDataChannel("text chat");
+        if (dataChannelArray.indexOf(dc) === -1) dataChannelArray.push(dc);
+        // we are letting the polite one estavlish the channe;
+        gdc = pcs[peer].conn.createDataChannel("game data");
+        addDataChannelEventListner(dc); 
+        // need to add game events
+      }
+    
+  };
+  
+  //listen for datachannel
+  // This will on fire on receiving end of the connection
+  pcs[peer].conn.ondatachannel = function (e) {
+    console.log("Data Channel is open");
+    if(e.channel.label == 'text chat'){
+      dc = e.channel;
+      addDataChannelEventListner(dc);
+    }
+    if(e.channel.label == "game data"){
+      gdc = e.channel
+    }
+  };
+
   pcs[peer].conn.ontrack = function({track}) {
     console.log('Heard an ontrack event:\n', track);
     // Append track to the correct peer stream object
@@ -434,13 +441,15 @@ callButton.addEventListener('click', async function(e) {
       // Set the wheels in motion to negotiate the connection with each connected peer
       negotiateConnection(pcs[pc].conn, pcs[pc].clientIs, pc);
     }
+      // Remove the join button
+  sendJoinedMessage(joinName.value)
+  callButton.remove();
+  joinForm.remove();
       } else {
         alert("Enter your Name!");
       }
   
-  // Remove the join button
-  sendJoinedMessage(joinName.value)
-  callButton.remove();
+
   // TODO: Add a "Leave Call" button, and buttons for controlling audio/video
 
 });
