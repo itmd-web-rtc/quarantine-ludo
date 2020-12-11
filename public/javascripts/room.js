@@ -348,7 +348,7 @@ function establishPeer(peer,isPolite) {
         dc = pcs[peer].conn.createDataChannel("text chat");
         if (dataChannelArray.indexOf(dc) === -1) dataChannelArray.push(dc);
         // we are letting the polite one estavlish the channe;
-        gdc = pcs[peer].conn.createDataChannel("game data");
+        var gdc = pcs[peer].conn.createDataChannel("game data");
         addDataChannelEventListner(dc); 
         // need to add game events
       }
@@ -364,7 +364,7 @@ function establishPeer(peer,isPolite) {
       addDataChannelEventListner(dc);
     }
     if(e.channel.label == "game data"){
-      gdc = e.channel
+      var gdc = e.channel
     }
   };
 
@@ -574,33 +574,10 @@ dice.addEventListener("click", function (e) {
 
 
     //if number is 6 move pawn from player block to board
-  if(num == 6 && dontHaveOtherFree()){
-    if(text.innerText == 'green'){
-      var g1 = document.querySelector('#g1');
-      g1.appendChild(greenpawn1);
-      currpawn = greenpawn1
-      positions[currpawn] = g1;
-      dice.style.backgroundImage = "url(images/dice.gif)";
-    }else if(text.innerText == 'yellow'){
-      var y1 = document.querySelector('#y1');
-      y1.appendChild(yellowpawn1);
-      currpawn = yellowpawn1
-      positions[currpawn] = y1;
-      dice.style.backgroundImage = "url(images/dice.gif)";
-    }else if(text.innerText == 'blue'){
-      var b1 = document.querySelector('#b1');
-      b1.appendChild(bluepawn1);
-      currpawn = bluepawn1
-      positions[currpawn] = b1;
-      dice.style.backgroundImage = "url(images/dice.gif)";
-    }else{
-      var r1 = document.querySelector('#r1');
-      r1.appendChild(redpawn1);
-      currpawn = redpawn1
-      positions[currpawn] = r1;
-      dice.style.backgroundImage = "url(images/dice.gif)";
+    if(num == 6 && dontHaveOtherFree()){
+        dice.style.backgroundImage = "url(images/" + num + ".jpg)";
+        n = num;
     }
-  }
 
   }
 
@@ -620,10 +597,25 @@ function randomMove(Color, paw, number) {
   num = number;
   currpawn = currcolor + "pawn" + NumOfPaw;
   currPos = positions[currpawn];
-  var pcolor = Color.slice(0, 1);
-  var pnum = paw
-  var newnum = pnum + num;
-  newPos = pcolor + newnum;
+  if(currPos == 0 ){
+      if(currcolor == "red")
+      {
+        newPos = redpawn[0];
+      }else if(currcolor == "blue"){
+        newPos = bluepawn[0];
+      }
+      else if(currcolor == "yellow"){
+        newPos = yellowpawn[0];
+      }
+      else{
+        newPos = greenpawn[0];
+      }
+
+  }
+  //var pcolor = Color.slice(0, 1);
+  //var pnum = paw
+  //var newnum = pnum + num;
+  //newPos = pcolor + newnum;
   console.log(newPos)
   var destination = document.querySelector('#'+newPos);
   console.log(currpawn)
@@ -631,7 +623,8 @@ function randomMove(Color, paw, number) {
   destination.appendChild(source);
   positions[currpawn] = destination;
   dice.style.backgroundImage = "url(images/dice.gif)";
-  window.setTimeout(changePlayer, 1000);
+  if(num != 6)
+      window.setTimeout(changePlayer, 1000);
   clicked = false;
 }
 
