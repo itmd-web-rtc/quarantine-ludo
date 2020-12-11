@@ -234,6 +234,9 @@ function addDataChannelEventListner(datachannel) {
       appendMsgToChatLog(chatLog, msg2, "self");
       chatInput.value = "";
       datachannel.send(msg2);
+
+
+      //Send data to datachanel which are not same
       dataChannelArray.forEach((dc)=>{
         if(datachannel != dc){
           dc.send(msg2);
@@ -337,6 +340,7 @@ function establishPeer(peer,isPolite) {
   pcs[peer].conn = new RTCPeerConnection(rtc_config);
   // Respond to peer track events
 
+  //Create data channels for peers
   pcs[peer].conn.onconnectionstatechange = function (e) {
     if (pcs[peer].conn.connectionState == "connected") {
         
